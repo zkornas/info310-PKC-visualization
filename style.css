@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+.colorPickerContainer {
+    margin-bottom: 20px;
+}
+
+.colorPicker {
+    width: 200px;
+    height: 40px;
+}
+
+.selectedColor {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}

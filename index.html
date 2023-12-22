@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="colorPickerContainer">
+        <label for="aliceColorPicker">Alice's Private Color:</label>
+        <input type="color" id="aliceColorPicker" class="colorPicker" value="#ff0000">
+
+        <div id="aliceSelectedColor" class="selectedColor"></div>
+    </div>
+
+    <div class="colorPickerContainer">
+        <label for="bobColorPicker">Bob's Private Color:</label>
+        <input type="color" id="bobColorPicker" class="colorPicker" value="#00ff00">
+
+        <div id="bobSelectedColor" class="selectedColor"></div>
+    </div>
+
+    <div class="colorPickerContainer">
+        <label for="publicColorPicker">Public Color:</label>
+        <input type="color" id="publicColorPicker" class="colorPicker" value="#000000">
+
+        <div id="publicSelectedColor" class="selectedColor"></div>
+    </div>
+
+    <script src="javascript.js"></script>
+</body>
+</html>
