@@ -80,7 +80,7 @@ var bobPublicColorDiv = document.getElementById('bobPublicColor');
 generateBobPublicColorButton.addEventListener('click', function() {
     bobPublicColor = mixColorsWithRatio(bobPrivateColor, publicColor, 1, 1);
     bobPublicColorDiv.style.backgroundColor = bobPublicColor;
-})
+});
 
 function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
     // convert hex to rgb
