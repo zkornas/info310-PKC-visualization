@@ -136,3 +136,39 @@ function componentToHex(c) {
     var hex = c.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
 }
+
+var aliceOnLaptopButton = document.getElementById('aliceOnLaptop');
+var aliceColorsDiv = document.getElementById('aliceColors');
+var alicePublicColorEquationDiv = document.getElementById('alicePublicColorEquation');
+
+aliceOnLaptopButton.addEventListener('click', function() {
+if (aliceOnLaptopButton.src.includes('alice_happy_laptop.png')){
+    aliceOnLaptopButton.src = 'imgs/alice_neutral_laptop.png';
+    console.log('Alice is neutral');
+    aliceColorsDiv.classList.add('blur');
+    alicePrivateColorMiniDiv.classList.add('grey');
+} else {
+    aliceOnLaptopButton.src = 'imgs/alice_happy_laptop.png';
+    console.log('Alice is happy');
+    aliceColorsDiv.classList.remove('blur');
+    alicePrivateColorMiniDiv.classList.remove('grey');
+}
+});
+
+var bobOnLaptopButton = document.getElementById('bobOnLaptop');
+var bobColorsDiv = document.getElementById('bobColors');
+var bobPublicColorEquationDiv = document.getElementById('bobPublicColorEquation');
+
+bobOnLaptopButton.addEventListener('click', function() {
+if (bobOnLaptopButton.src.includes('bob_happy_laptop.png')){
+    bobOnLaptopButton.src = 'imgs/bob_neutral_laptop.png';
+    console.log('Bob is neutral');
+    bobColorsDiv.classList.add('blur');
+    bobPrivateColorMiniDiv.classList.add('grey');
+} else {
+    bobOnLaptopButton.src = 'imgs/bob_happy_laptop.png';
+    console.log('bob is happy');
+    bobColorsDiv.classList.remove('blur');
+    bobPrivateColorMiniDiv.classList.remove('grey');
+}
+});

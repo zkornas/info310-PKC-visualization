@@ -9,22 +9,28 @@
 <body>
     <div class="flexbox">
         <div id="aliceColorSection">
-            <div class="colorPickerContainer">
-                <label for="aliceColorPicker">Alice's Private Color:</label><br>
-                <input type="color" id="aliceColorPicker" class="colorPicker" value="#ff0000">
+            <div id="aliceColors" class="blur">
+                <div class="colorPickerContainer">
+                    <label for="aliceColorPicker">Alice's Private Color:</label><br>
+                    <input type="color" id="aliceColorPicker" class="colorPicker" value="#ff0000">
+                </div>
+
+                <div class="generateSharedSecretColorAlice">
+                    <input type="button" id="generateSharedSecretColorAlice" value="Generate Shared Secret">
+                    
+                    <div class="flexbox">
+                        <div id="alicePrivateColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>+</p>
+                        <div id="bobPublicColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>=</p>
+                    </div>
+                    <label for="aliceSharedPrivateColor">Shared Secret Color:</label>
+                    <div id="aliceSharedPrivateColor" class="selectedColor"></div>
+                </div>
             </div>
 
-            <div class="generateSharedSecretColorAlice">
-                <input type="button" id="generateSharedSecretColorAlice" value="Generate Shared Secret">
-                
-                <div class="flexbox">
-                    <div id="alicePrivateColorInSharedSecret" class="selectedColorMini"></div>
-                    <p>+</p>
-                    <div id="bobPublicColorInSharedSecret" class="selectedColorMini"></div>
-                    <p>=</p>
-                </div>
-                <label for="aliceSharedPrivateColor">Shared Secret Color:</label>
-                <div id="aliceSharedPrivateColor" class="selectedColor"></div>
+            <div>
+                <img id="aliceOnLaptop" class="charactersInPersonalSection" src="imgs/alice_neutral_laptop.PNG">
             </div>
 
         </div>
@@ -33,7 +39,7 @@
             <input type="button" id="generateAlicePublicColor" value="Generate Alice's Public Color">
             
             <div class="flexbox">
-                <div id="alicePrivateColorInPublicColor" class="selectedColorMini"></div>
+                <div id="alicePrivateColorInPublicColor" class="selectedColorMini grey"></div>
                 <p>+</p>
                 <div id="publicColorAlice" class="selectedColorMini"></div>
                 <p>=</p>
@@ -54,7 +60,7 @@
             <input type="button" id="generateBobPublicColor" value="Generate Bob's Public Color">
 
             <div class="flexbox">
-                <div id="bobPrivateColorInPublicColor" class="selectedColorMini"></div>
+                <div id="bobPrivateColorInPublicColor" class="selectedColorMini grey"></div>
                 <p>+</p>
                 <div id="publicColorBob" class="selectedColorMini"></div>
                 <p>=</p>
@@ -65,23 +71,29 @@
         </div>
         
         <div id="bobColorSection">
-            <div class="colorPickerContainer">
-                <label for="bobColorPicker">Bob's Private Color:</label><br>
-                <input type="color" id="bobColorPicker" class="colorPicker" value="#00ff00">
-            </div>
-
-            <div class="generateSharedSecretColorBob">
-                <input type="button" id="generateSharedSecretColorBob" value="Generate Shared Secret">
-                
-                <div class="flexbox">
-                    <div id="bobPrivateColorInSharedSecret" class="selectedColorMini"></div>
-                    <p>+</p>
-                    <div id="alicePublicColorInSharedSecret" class="selectedColorMini"></div>
-                    <p>=</p>
+            <div id="bobColors" class="blur">
+                <div class="colorPickerContainer">
+                    <label for="bobColorPicker">Bob's Private Color:</label><br>
+                    <input type="color" id="bobColorPicker" class="colorPicker" value="#00ff00">
                 </div>
 
-                <label for="bobSharedPrivateColor">Shared Secret Color:</label>
-                <div id="bobSharedPrivateColor" class="selectedColor"></div>
+                <div class="generateSharedSecretColorBob">
+                    <input type="button" id="generateSharedSecretColorBob" value="Generate Shared Secret">
+                    
+                    <div class="flexbox">
+                        <div id="bobPrivateColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>+</p>
+                        <div id="alicePublicColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>=</p>
+                    </div>
+
+                    <label for="bobSharedPrivateColor">Shared Secret Color:</label>
+                    <div id="bobSharedPrivateColor" class="selectedColor"></div>
+                </div>
+            </div>
+
+            <div>
+                <img id="bobOnLaptop" class="charactersInPersonalSection" src="imgs/bob_neutral_laptop.PNG">
             </div>
         </div>
     </div>

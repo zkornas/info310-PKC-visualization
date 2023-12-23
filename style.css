@@ -44,8 +44,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
+}
+
+#bobColors,
+#aliceColors {
     border: 2px dashed black;
     padding: 10px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.blur {
+    filter: blur(5px) grayscale(10);
 }
 
 #aliceColorSection .colorPickerContainer,
@@ -61,12 +71,6 @@ body {
 .generateSharedSecretColorAlice input,
 .generateSharedSecretColorBob input {
     margin-top: 0;
-}
-
-#aliceColorSection,
-#bobColorSection {
-    border: 2px dashed black;
-    padding: 10px;
 }
 
 .generateAlicePublicColor,
@@ -85,4 +89,23 @@ body {
 
 .generateSharedSecretColor input {
     margin-top: 10px;
+}
+
+.charactersInPersonalSection {
+    width: 200px;
+    height: 200px;
+}
+
+#aliceOnLaptop,
+#bobOnLaptop {
+    transition: transform 0.2s ease-in-out;
+}
+
+#aliceOnLaptop:hover,
+#bobOnLaptop:hover {
+    transform: translateY(-5px); /* Adjust the value based on your preference */
+}
+
+.grey {
+    filter: grayscale(10);
 }
