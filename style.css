@@ -10,12 +10,47 @@ body {
 
 .colorPicker {
     width: 200px;
-    height: 40px;
+    height: 200px;
 }
 
 .selectedColor {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     margin-top: 20px;
+    vertical-align: top;
+    align-items: center;
     border: 1px solid #ccc;
+    margin-left: 15%;
+    margin-bottom: 20px;
 }
+
+#aliceColorSection,
+#bobColorSection {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 20px;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: black;
+    padding: 10px;
+}
+
+#publicColorSection {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 20px;
+}
+
+
+.generateAlicePublicColor,
+.generateBobPublicColor,
+.generateSharedSecretColor { /* Added the shared class to apply styles */
+    margin-top: 20px;
+    display: block; /* or inline-block */
+    text-align: center; /* Align the content in the center */
+}
+
+.generateSharedSecretColor input { /* Apply styles to the button inside generateSharedSecretColor */
+    margin-top: 10px; /* Adjust as needed */
+}
+
