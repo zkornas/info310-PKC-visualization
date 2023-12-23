@@ -26,10 +26,17 @@ body {
     align-items: center;
     width: 200px;
     height: 200px;
-    margin-top: 20px;
+    margin-top: 10px;
     border: 1px solid #ccc;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.selectedColorMini {
+    width: 20px;
+    height: 20px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
 }
 
 #aliceColorSection,
@@ -63,11 +70,18 @@ body {
 }
 
 .generateAlicePublicColor,
+.generateBobPublicColor{
+    align-self: center;
+}
+
+.generateAlicePublicColor,
 .generateBobPublicColor,
 .generateSharedSecretColor {
     margin-top: 20px;
     text-align: center;
 }
+
+
 
 .generateSharedSecretColor input {
     margin-top: 10px;

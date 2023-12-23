@@ -2,11 +2,32 @@ var alicePrivateColor = document.getElementById('aliceColorPicker').value;
 var bobPrivateColor = document.getElementById('bobColorPicker').value;
 var publicColor = document.getElementById('publicColorPicker').value;
 
+var alicePrivateColorMiniDiv = document.getElementById('alicePrivateColorInPublicColor');
+alicePrivateColorMiniDiv.style.background = alicePrivateColor;
+
+var bobPrivateColorMiniDiv = document.getElementById('bobPrivateColorInPublicColor');
+bobPrivateColorMiniDiv.style.background = bobPrivateColor;
+
+var publicColorMiniDivAlice = document.getElementById('publicColorAlice');
+var publicColorMiniDivBob = document.getElementById('publicColorBob');
+publicColorMiniDivAlice.style.background = publicColor;
+publicColorMiniDivBob.style.background = publicColor;
+
 var alicePublicColor;
 var bobPublicColor;
 
 var aliceSharedSecretColor;
 var bobSharedSecretColor;
+
+var bobPrivateColorInSharedSecret = document.getElementById('bobPrivateColorInSharedSecret');
+bobPrivateColorInSharedSecret.style.background = bobPrivateColor;
+
+var alicePublicColorInSharedSecret = document.getElementById('alicePublicColorInSharedSecret');
+
+var alicePrivateColorInSharedSecret = document.getElementById('alicePrivateColorInSharedSecret');
+alicePrivateColorInSharedSecret.style.background = alicePrivateColor;
+
+var bobPublicColorInSharedSecret = document.getElementById('bobPublicColorInSharedSecret');
 
 console.log("Alice Private Default: ", alicePrivateColor);
 console.log("Bob Private Default: ", bobPrivateColor);
@@ -19,6 +40,8 @@ aliceColorPicker.addEventListener('input', function () {
     var selectedColor = aliceColorPicker.value;
 
     alicePrivateColor = selectedColor;
+    alicePrivateColorMiniDiv.style.background = selectedColor;
+    alicePrivateColorInSharedSecret.style.background = selectedColor;
     console.log("Alice's Selected Color:", alicePrivateColor);
 });
 
@@ -29,6 +52,8 @@ bobColorPicker.addEventListener('input', function () {
     var selectedColor = bobColorPicker.value;
 
     bobPrivateColor = selectedColor;
+    bobPrivateColorMiniDiv.style.background = selectedColor;
+    bobPrivateColorInSharedSecret.style.background = selectedColor;
     console.log("Bob's Selected Color:", bobPrivateColor);
 });
 
@@ -39,6 +64,8 @@ publicColorPicker.addEventListener('input', function () {
     var selectedColor = publicColorPicker.value;
 
     publicColor = selectedColor;
+    publicColorMiniDivAlice.style.background = selectedColor;
+    publicColorMiniDivBob.style.background = selectedColor;
     console.log("Public Color:", publicColor);
 });
 
@@ -51,6 +78,7 @@ generateAlicePublicColorButton.addEventListener('click', function () {
     // mix Alice's private color with the public color
     alicePublicColor = mixColorsWithRatio(alicePrivateColor, publicColor, 1, 1);
     alicePublicColorDiv.style.backgroundColor = alicePublicColor;
+    alicePublicColorInSharedSecret.style.background = alicePublicColor;
 });
 
 // mix alice's private color with bob's public color
@@ -80,6 +108,7 @@ var bobPublicColorDiv = document.getElementById('bobPublicColor');
 generateBobPublicColorButton.addEventListener('click', function() {
     bobPublicColor = mixColorsWithRatio(bobPrivateColor, publicColor, 1, 1);
     bobPublicColorDiv.style.backgroundColor = bobPublicColor;
+    bobPublicColorInSharedSecret.style.background = bobPublicColor;
 });
 
 function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
