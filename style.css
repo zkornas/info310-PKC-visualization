@@ -56,6 +56,7 @@ body {
 
 .blur {
     filter: blur(5px) grayscale(10);
+    pointer-events: none;
 }
 
 #aliceColorSection .colorPickerContainer,
