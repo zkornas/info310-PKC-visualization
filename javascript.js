@@ -1,6 +1,12 @@
-var alicePrivateColor = document.getElementById('aliceColorPicker').value;
-var bobPrivateColor = document.getElementById('bobColorPicker').value;
-var publicColor = document.getElementById('publicColorPicker').value;
+// Get's element and value for the color pickers for Alice, Bob, and Public.
+var aliceColorPicker = document.getElementById('aliceColorPicker');
+var alicePrivateColor = aliceColorPicker.value;
+
+var bobColorPicker = document.getElementById('bobColorPicker');
+var bobPrivateColor = bobColorPicker.value;
+
+var publicColorPicker = document.getElementById('publicColorPicker');
+var publicColor = publicColorPicker.value;
 
 var alicePrivateColorMiniDiv = document.getElementById('alicePrivateColorInPublicColor');
 alicePrivateColorMiniDiv.style.background = alicePrivateColor;
@@ -32,40 +38,39 @@ var bobPublicColorInSharedSecret = document.getElementById('bobPublicColorInShar
 // Function for handeling user-selected color for Bob and Alice's private colors
 // Parameters
 //      colorPicker: The actual color picker element
-//      privateColor: The private color variable that will be updated based on user input
+//      name: 'alice', 'bob', or 'public' so that we know which color variable to update
 //      miniDiv: The mini-div that shows Bob/Alice's private color in the equation to make their public color
 //      inSharedSecret: The mini-div that shows Alice/Bob's private color in the equationto make the shared secret color
 
-function handleColorPickerInput(colorPicker, privateColor, miniDiv, inSharedSecret) {
+function handleColorPickerInput(colorPicker, name, miniDiv, inSharedSecret) {
     var selectedColor = colorPicker.value;
 
-    privateColor = selectedColor;
+    if (name == 'alice') {
+        alicePrivateColor = selectedColor;
+    } else if (name == 'bob') {
+        bobPrivateColor = selectedColor;
+    } else {
+        publicColor = selectedColor;
+    }
     miniDiv.style.background = selectedColor;
     inSharedSecret.style.background = selectedColor;
 }
 
 // Event Listener for when the user selects Alice's private color
-var aliceColorPicker = document.getElementById('aliceColorPicker');
 aliceColorPicker.addEventListener('input', function () {
-    handleColorPickerInput(aliceColorPicker, alicePrivateColor, alicePrivateColorMiniDiv, alicePrivateColorInSharedSecret);
+    handleColorPickerInput(aliceColorPicker, 'alice', alicePrivateColorMiniDiv, alicePrivateColorInSharedSecret);
+    console.log('Alice private color: ', alicePrivateColor);
 });
 
 // Event Listener for when the user selects Bob's private color
-var bobColorPicker = document.getElementById('bobColorPicker');
 bobColorPicker.addEventListener('input', function () {
-    handleColorPickerInput(bobColorPicker, bobPrivateColor, bobPrivateColorMiniDiv, bobPrivateColorInSharedSecret);
+    handleColorPickerInput(bobColorPicker, 'bob', bobPrivateColorMiniDiv, bobPrivateColorInSharedSecret);
+    console.log('Bob private color: ', bobPrivateColor);
 });
 
-
-// Handles user input for public color. Would like to adjust to combine with handleColorPickerInput() function.
-var publicColorPicker = document.getElementById('publicColorPicker');
-
+// Event Listener for when the user selects public color
 publicColorPicker.addEventListener('input', function () {
-    var selectedColor = publicColorPicker.value;
-
-    publicColor = selectedColor;
-    publicColorMiniDivAlice.style.background = selectedColor;
-    publicColorMiniDivBob.style.background = selectedColor;
+    handleColorPickerInput(publicColorPicker, 'public', publicColorMiniDivAlice, publicColorMiniDivBob);
 });
 
 // generate alice public color
@@ -73,12 +78,30 @@ var generateAlicePublicColorButton = document.getElementById('generateAlicePubli
 var alicePublicColorDiv = document.getElementById('alicePublicColor');
 
 generateAlicePublicColorButton.addEventListener('click', function () {
-
-    // mix Alice's private color with the public color
-    alicePublicColor = mixColorsWithRatio(alicePrivateColor, publicColor, 1, 1);
-    alicePublicColorDiv.style.backgroundColor = alicePublicColor;
-    alicePublicColorInSharedSecret.style.background = alicePublicColor;
+    generatePublicColor(alicePublicColor, alicePrivateColor, alicePublicColorDiv, alicePublicColorInSharedSecret);
 });
+
+// generate bobs public color
+var generateBobPublicColorButton = document.getElementById('generateBobPublicColor');
+var bobPublicColorDiv = document.getElementById('bobPublicColor');
+
+generateBobPublicColorButton.addEventListener('click', function() {
+    generatePublicColor(bobPublicColor, bobPrivateColor, bobPublicColorDiv, bobPublicColorInSharedSecret);
+});
+
+// Function to generate Alice/Bob's public color by mixing their private color with the public color
+// Parameters
+//      personalPublicColor: The individual's personal public color that can be used by anyone. 
+//                           Is assigned a value after calling mixColorsWithRatio function.
+//      privateColor: The individual's private color.
+//      publicColorDiv: The div element that will display the public color.
+//      personalPublicColorInSharedSecret: The div element that display's the individual's public color
+//                                         in the equation used to generate the shared secret color.
+function generatePublicColor(personalPublicColor, privateColor, publicColorDiv, personalPublicColorInSharedSecret) {
+    personalPublicColor = mixColorsWithRatio(privateColor, publicColor, 1, 1);
+    publicColorDiv.style.backgroundColor = personalPublicColor;
+    personalPublicColorInSharedSecret.style.background = personalPublicColor;
+};
 
 // mix alice's private color with bob's public color
 var generateSharedSecretColorAliceButton = document.getElementById('generateSharedSecretColorAlice');
@@ -98,16 +121,6 @@ generateSharedSecretColorBobButton.addEventListener('click', function() {
 
     bobSharedSecretColor = mixColorsWithRatio(bobPrivateColor, alicePublicColor, 1, 2);
     sharedSecretColorBobDiv.style.backgroundColor = bobSharedSecretColor;
-});
-
-// generate bobs public color
-var generateBobPublicColorButton = document.getElementById('generateBobPublicColor');
-var bobPublicColorDiv = document.getElementById('bobPublicColor');
-
-generateBobPublicColorButton.addEventListener('click', function() {
-    bobPublicColor = mixColorsWithRatio(bobPrivateColor, publicColor, 1, 1);
-    bobPublicColorDiv.style.backgroundColor = bobPublicColor;
-    bobPublicColorInSharedSecret.style.background = bobPublicColor;
 });
 
 function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
