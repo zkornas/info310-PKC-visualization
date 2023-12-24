@@ -1,46 +1,12 @@
-// Get's element and value for the color pickers for Alice, Bob, and Public.
-var aliceColorPicker = document.getElementById('aliceColorPicker');
-var alicePrivateColor = aliceColorPicker.value;
-
-var bobColorPicker = document.getElementById('bobColorPicker');
-var bobPrivateColor = bobColorPicker.value;
-
-var publicColorPicker = document.getElementById('publicColorPicker');
-var publicColor = publicColorPicker.value;
-
-var alicePrivateColorMiniDiv = document.getElementById('alicePrivateColorInPublicColor');
-alicePrivateColorMiniDiv.style.background = alicePrivateColor;
-
-var bobPrivateColorMiniDiv = document.getElementById('bobPrivateColorInPublicColor');
-bobPrivateColorMiniDiv.style.background = bobPrivateColor;
-
-var publicColorMiniDivAlice = document.getElementById('publicColorAlice');
-var publicColorMiniDivBob = document.getElementById('publicColorBob');
-publicColorMiniDivAlice.style.background = publicColor;
-publicColorMiniDivBob.style.background = publicColor;
-
-var alicePublicColor;
-var bobPublicColor;
-
-var aliceSharedSecretColor;
-var bobSharedSecretColor;
-
-var bobPrivateColorInSharedSecret = document.getElementById('bobPrivateColorInSharedSecret');
-bobPrivateColorInSharedSecret.style.background = bobPrivateColor;
-
-var alicePublicColorInSharedSecret = document.getElementById('alicePublicColorInSharedSecret');
-
-var alicePrivateColorInSharedSecret = document.getElementById('alicePrivateColorInSharedSecret');
-alicePrivateColorInSharedSecret.style.background = alicePrivateColor;
-
-var bobPublicColorInSharedSecret = document.getElementById('bobPublicColorInSharedSecret');
-
 // Constructor for making a new color object. We will have three: Alice, Bob, and Public
 function colorConstructor(picker, colorValue, miniDivOne, miniDivTwo, personalPublicColor, personalPublicColorDiv, publicColorInSharedSecretDiv, sharedSecretColor, sharedSecretColorDiv, generatePublicColorButton, generateSharedSecretButton, showHideButton, colorsDiv, isHidden) {
     this.picker = picker;
     this.colorValue = colorValue;
     this.miniDivOne = miniDivOne;
     this.miniDivTwo = miniDivTwo;
+
+    miniDivOne.style.backgroundColor = colorValue;
+    miniDivTwo.style.backgroundColor = colorValue;
 
     // These will only be defined for Alice and Bob.
     this.personalPublicColor = personalPublicColor;
