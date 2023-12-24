@@ -9,6 +9,7 @@
 <body>
     <div class="flexbox">
         <div id="aliceColorSection">
+            <h1>Alice's View</h1>
             <div id="aliceColors" class="blur">
                 <div class="colorPickerContainer">
                     <label for="aliceColorPicker">Alice's Private Color:</label><br>
@@ -56,7 +57,7 @@
             </div>
 
             <div>
-                <img src="imgs/dice.png" class="charactersInPersonalSection">
+                <img id="randomButton" src="imgs/dice.png" class="charactersInPersonalSection shake-image" onclick="startShakeAnimation(this)">
             </div>
         </div>
 
@@ -75,6 +76,7 @@
         </div>
         
         <div id="bobColorSection">
+            <h1>Bob's View</h1>
             <div id="bobColors" class="blur">
                 <div class="colorPickerContainer">
                     <label for="bobColorPicker">Bob's Private Color:</label><br>

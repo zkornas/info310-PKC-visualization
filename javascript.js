@@ -29,10 +29,6 @@ alicePrivateColorInSharedSecret.style.background = alicePrivateColor;
 
 var bobPublicColorInSharedSecret = document.getElementById('bobPublicColorInSharedSecret');
 
-console.log("Alice Private Default: ", alicePrivateColor);
-console.log("Bob Private Default: ", bobPrivateColor);
-console.log("Public Default: ", publicColor);
-
 // Function for handeling user-selected color for Bob and Alice's private colors
 // Parameters
 //      colorPicker: The actual color picker element
@@ -46,7 +42,6 @@ function handleColorPickerInput(colorPicker, privateColor, miniDiv, inSharedSecr
     privateColor = selectedColor;
     miniDiv.style.background = selectedColor;
     inSharedSecret.style.background = selectedColor;
-    console.log(privateColor + "'s Selected Color:", privateColor);
 }
 
 // Event Listener for when the user selects Alice's private color
@@ -62,7 +57,7 @@ bobColorPicker.addEventListener('input', function () {
 });
 
 
-// public agreed on color
+// Handles user input for public color. Would like to adjust to combine with handleColorPickerInput() function.
 var publicColorPicker = document.getElementById('publicColorPicker');
 
 publicColorPicker.addEventListener('input', function () {
@@ -71,7 +66,6 @@ publicColorPicker.addEventListener('input', function () {
     publicColor = selectedColor;
     publicColorMiniDivAlice.style.background = selectedColor;
     publicColorMiniDivBob.style.background = selectedColor;
-    console.log("Public Color:", publicColor);
 });
 
 // generate alice public color
@@ -149,12 +143,10 @@ var alicePublicColorEquationDiv = document.getElementById('alicePublicColorEquat
 aliceOnLaptopButton.addEventListener('click', function() {
 if (aliceOnLaptopButton.src.includes('alice_happy_laptop.PNG')){
     aliceOnLaptopButton.src = 'imgs/alice_neutral_laptop.PNG';
-    console.log('Alice is neutral');
     aliceColorsDiv.classList.add('blur');
     alicePrivateColorMiniDiv.classList.add('grey');
 } else {
     aliceOnLaptopButton.src = 'imgs/alice_happy_laptop.PNG';
-    console.log('Alice is happy');
     aliceColorsDiv.classList.remove('blur');
     alicePrivateColorMiniDiv.classList.remove('grey');
 }
@@ -167,13 +159,51 @@ var bobPublicColorEquationDiv = document.getElementById('bobPublicColorEquation'
 bobOnLaptopButton.addEventListener('click', function() {
 if (bobOnLaptopButton.src.includes('bob_happy_laptop.PNG')){
     bobOnLaptopButton.src = 'imgs/bob_neutral_laptop.PNG';
-    console.log('Bob is neutral');
     bobColorsDiv.classList.add('blur');
     bobPrivateColorMiniDiv.classList.add('grey');
 } else {
     bobOnLaptopButton.src = 'imgs/bob_happy_laptop.PNG';
-    console.log('bob is happy');
     bobColorsDiv.classList.remove('blur');
     bobPrivateColorMiniDiv.classList.remove('grey');
 }
 });
+
+var randomButton = document.getElementById('randomButton');
+
+randomButton.addEventListener('click', function() {
+    randomButton.classList.add('shake-animation');
+    
+    alicePrivateColor = getRandomHexColor();
+    aliceColorPicker.value = alicePrivateColor;
+    alicePrivateColorMiniDiv.style.background = alicePrivateColor;
+    alicePrivateColorInSharedSecret.style.background = alicePrivateColor;
+    
+    bobPrivateColor = getRandomHexColor();
+    bobColorPicker.value = bobPrivateColor;
+    bobPrivateColorMiniDiv.style.background = bobPrivateColor;
+    bobPrivateColorInSharedSecret.style.background = bobPrivateColor;
+
+    publicColor = getRandomHexColor();
+    publicColorPicker.value = publicColor;
+    publicColorMiniDivAlice.style.background = publicColor;
+    publicColorMiniDivBob.style.background = publicColor;
+
+    generateAlicePublicColorButton.click();
+    generateBobPublicColorButton.click();
+    generateSharedSecretColorAliceButton.click();
+    generateSharedSecretColorBobButton.click();
+
+    setTimeout(() => {
+        randomButton.classList.remove('shake-animation');
+    }, 500);
+});
+
+// helper function to randomly generate hex color
+function getRandomHexColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
