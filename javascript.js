@@ -33,29 +33,34 @@ console.log("Alice Private Default: ", alicePrivateColor);
 console.log("Bob Private Default: ", bobPrivateColor);
 console.log("Public Default: ", publicColor);
 
-// select alice's private color
+// Function for handeling user-selected color for Bob and Alice's private colors
+// Parameters
+//      colorPicker: The actual color picker element
+//      privateColor: The private color variable that will be updated based on user input
+//      miniDiv: The mini-div that shows Bob/Alice's private color in the equation to make their public color
+//      inSharedSecret: The mini-div that shows Alice/Bob's private color in the equationto make the shared secret color
+
+function handleColorPickerInput(colorPicker, privateColor, miniDiv, inSharedSecret) {
+    var selectedColor = colorPicker.value;
+
+    privateColor = selectedColor;
+    miniDiv.style.background = selectedColor;
+    inSharedSecret.style.background = selectedColor;
+    console.log(privateColor + "'s Selected Color:", privateColor);
+}
+
+// Event Listener for when the user selects Alice's private color
 var aliceColorPicker = document.getElementById('aliceColorPicker');
-
 aliceColorPicker.addEventListener('input', function () {
-    var selectedColor = aliceColorPicker.value;
-
-    alicePrivateColor = selectedColor;
-    alicePrivateColorMiniDiv.style.background = selectedColor;
-    alicePrivateColorInSharedSecret.style.background = selectedColor;
-    console.log("Alice's Selected Color:", alicePrivateColor);
+    handleColorPickerInput(aliceColorPicker, alicePrivateColor, alicePrivateColorMiniDiv, alicePrivateColorInSharedSecret);
 });
 
-// select bob's private color
+// Event Listener for when the user selects Bob's private color
 var bobColorPicker = document.getElementById('bobColorPicker');
-
 bobColorPicker.addEventListener('input', function () {
-    var selectedColor = bobColorPicker.value;
-
-    bobPrivateColor = selectedColor;
-    bobPrivateColorMiniDiv.style.background = selectedColor;
-    bobPrivateColorInSharedSecret.style.background = selectedColor;
-    console.log("Bob's Selected Color:", bobPrivateColor);
+    handleColorPickerInput(bobColorPicker, bobPrivateColor, bobPrivateColorMiniDiv, bobPrivateColorInSharedSecret);
 });
+
 
 // public agreed on color
 var publicColorPicker = document.getElementById('publicColorPicker');
