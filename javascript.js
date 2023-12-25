@@ -1,14 +1,12 @@
 // Constructor for making a new color object. We will have three: Alice, Bob, and Public
-function colorConstructor(picker, colorValue, colorValueLabel, miniDivOne, miniDivTwo, personalPublicColor, personalPublicColorDiv, publicColorInSharedSecretDiv, sharedSecretColor, sharedSecretColorDiv, generatePublicColorButton, generateSharedSecretButton, showHideButton, colorsDiv, isHidden) {
+function colorConstructor(picker, colorValue, miniDivOne, miniDivTwo, personalPublicColor, personalPublicColorDiv, publicColorInSharedSecretDiv, sharedSecretColor, sharedSecretColorDiv, generatePublicColorButton, generateSharedSecretButton, showHideButton, colorsDiv, isHidden) {
     this.picker = picker;
     this.colorValue = colorValue;
-    this.colorValueLabel = colorValueLabel;
     this.miniDivOne = miniDivOne;
     this.miniDivTwo = miniDivTwo;
 
     miniDivOne.style.backgroundColor = colorValue;
     miniDivTwo.style.backgroundColor = colorValue;
-    colorValueLabel.textContent = colorValue;
 
     // These will only be defined for Alice and Bob.
     this.personalPublicColor = personalPublicColor;
@@ -26,7 +24,6 @@ function colorConstructor(picker, colorValue, colorValueLabel, miniDivOne, miniD
 var alice = new colorConstructor(
     document.getElementById('aliceColorPicker'),
     document.getElementById('aliceColorPicker').value,
-    document.getElementById('aliceColorPickerValue'),
     document.getElementById('alicePrivateColorInPublicColor'),
     document.getElementById('alicePrivateColorInSharedSecret'),
     undefined,
@@ -44,7 +41,6 @@ var alice = new colorConstructor(
 var bob = new colorConstructor(
     document.getElementById('bobColorPicker'),
     document.getElementById('bobColorPicker').value,
-    document.getElementById('bobColorPickerValue'),
     document.getElementById('bobPrivateColorInPublicColor'),
     document.getElementById('bobPrivateColorInSharedSecret'),
     undefined,
@@ -62,7 +58,6 @@ var bob = new colorConstructor(
 var public = new colorConstructor(
     document.getElementById('publicColorPicker'),
     document.getElementById('publicColorPicker').value,
-    document.getElementById('publicColorPickerValue'),
     document.getElementById('publicColorAlice'),
     document.getElementById('publicColorBob')
 )
@@ -72,7 +67,6 @@ function handleColorPickerInput(colorObject) {
    colorObject.colorValue = selectedColor;
    colorObject.miniDivOne.style.background = selectedColor;
    colorObject.miniDivTwo.style.background = selectedColor;
-   colorObject.colorValueLabel.textContent = selectedColor;
 };
 
 alice.picker.addEventListener('input', function() {
@@ -176,21 +170,18 @@ randomButton.addEventListener('click', async function() {
     alice.picker.value = alice.colorValue;
     alice.miniDivOne.style.backgroundColor = alice.colorValue;
     alice.miniDivTwo.style.backgroundColor = alice.colorValue;
-    alice.colorValueLabel.textContent = alice.colorValue;
     await sleep(100);
 
     bob.colorValue = getRandomHexColor();
     bob.picker.value = bob.colorValue;
     bob.miniDivOne.style.backgroundColor = bob.colorValue;
     bob.miniDivTwo.style.backgroundColor = bob.colorValue;
-    bob.colorValueLabel.textContent = bob.colorValue;
     await sleep(100);
 
     public.colorValue = getRandomHexColor();
     public.picker.value = public.colorValue;
     public.miniDivOne.style.backgroundColor = public.colorValue;
     public.miniDivTwo.style.backgroundColor = public.colorValue;
-    public.colorValueLabel.textContent = public.colorValue;
     await sleep(100);
 
     alice.generatePublicColorButton.click();
