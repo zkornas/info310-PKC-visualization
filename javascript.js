@@ -145,15 +145,11 @@ bob.showHideButton.addEventListener('click', function(){
 });
 
 function showHideColorSection(colorObject) {
-    if (colorObject.isHidden == false) {
-        colorObject.colorsDiv.classList.add('blur');
-        colorObject.miniDivOne.classList.add('grey');
-        colorObject.isHidden = true;
-    } else {
-        colorObject.colorsDiv.classList.remove('blur');
-        colorObject.miniDivOne.classList.remove('grey');
-        colorObject.isHidden = false;
-    }
+    const isHidden = !colorObject.isHidden;
+
+    colorObject.colorsDiv.classList.toggle('blur', isHidden);
+    colorObject.miniDivOne.classList.toggle('grey', isHidden);
+    colorObject.isHidden = isHidden;
 };
 
 function startShakeAnimation(element) {
@@ -167,24 +163,12 @@ var randomButton = document.getElementById('randomButton');
 
 randomButton.addEventListener('click', async function() {
     startShakeAnimation(randomButton);
+    startShakeAnimation(alice.showHideButton);
+    startShakeAnimation(bob.showHideButton);
     
-    alice.colorValue = getRandomHexColor();
-    alice.picker.value = alice.colorValue;
-    alice.miniDivOne.style.backgroundColor = alice.colorValue;
-    alice.miniDivTwo.style.backgroundColor = alice.colorValue;
-    await sleep(100);
-
-    bob.colorValue = getRandomHexColor();
-    bob.picker.value = bob.colorValue;
-    bob.miniDivOne.style.backgroundColor = bob.colorValue;
-    bob.miniDivTwo.style.backgroundColor = bob.colorValue;
-    await sleep(100);
-
-    public.colorValue = getRandomHexColor();
-    public.picker.value = public.colorValue;
-    public.miniDivOne.style.backgroundColor = public.colorValue;
-    public.miniDivTwo.style.backgroundColor = public.colorValue;
-    await sleep(100);
+    randomColorGeneratorHelper(alice);
+    randomColorGeneratorHelper(bob);
+    randomColorGeneratorHelper(public);
 
     alice.generatePublicColorButton.click();
     await sleep(100);
@@ -195,6 +179,14 @@ randomButton.addEventListener('click', async function() {
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
 });
+
+async function randomColorGeneratorHelper(colorObject) {
+    colorObject.colorValue = getRandomHexColor();
+    colorObject.picker.value = colorObject.colorValue;
+    colorObject.miniDivOne.style.backgroundColor = colorObject.colorValue;
+    colorObject.miniDivTwo.style.backgroundColor = colorObject.colorValue;
+    await sleep(100);
+};
 
 function getRandomHexColor() {
     const letters = "0123456789ABCDEF";
