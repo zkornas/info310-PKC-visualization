@@ -91,10 +91,7 @@ function generatePublicColor(colorObject) {
     colorObject.personalPublicColor = mixColorsWithRatio(colorObject.colorValue, public.colorValue, 1, 1);
     colorObject.personalPublicColorDiv.style.background = colorObject.personalPublicColor;
     colorObject.publicColorInSharedSecretDiv.style.background = colorObject.personalPublicColor;
-    // Make the element draggable
     colorObject.personalPublicColorDiv.draggable = true;
-
-    // Add a dragstart event listener
     colorObject.personalPublicColorDiv.addEventListener('dragstart', function (event) {
         event.dataTransfer.setData('text/plain', colorObject.personalPublicColor);
     });
