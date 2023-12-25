@@ -1,4 +1,3 @@
-// Constructor for making a new color object. We will have three: Alice, Bob, and Public
 function colorConstructor(picker, colorValue, miniDivOne, miniDivTwo, personalPublicColor, personalPublicColorDiv, publicColorInSharedSecretDiv, sharedSecretColor, sharedSecretColorDiv, generatePublicColorButton, generateSharedSecretButton, showHideButton, colorsDiv, isHidden) {
     this.picker = picker;
     this.colorValue = colorValue;
@@ -8,7 +7,6 @@ function colorConstructor(picker, colorValue, miniDivOne, miniDivTwo, personalPu
     miniDivOne.style.backgroundColor = colorValue;
     miniDivTwo.style.backgroundColor = colorValue;
 
-    // These will only be defined for Alice and Bob.
     this.personalPublicColor = personalPublicColor;
     this.personalPublicColorDiv = personalPublicColorDiv;
     this.publicColorInSharedSecretDiv = publicColorInSharedSecretDiv;
@@ -106,7 +104,6 @@ bob.generateSharedSecretButton.addEventListener('click', function() {
 });
 
 function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
-    // convert hex to rgb
     var r1 = parseInt(color1.substring(1, 3), 16);
     var g1 = parseInt(color1.substring(3, 5), 16);
     var b1 = parseInt(color1.substring(5, 7), 16);
@@ -115,7 +112,6 @@ function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
     var g2 = parseInt(color2.substring(3, 5), 16);
     var b2 = parseInt(color2.substring(5, 7), 16);
 
-    // mix colors with ratio
     var mixedR = Math.round((r1 * ratio1 + r2 * ratio2) / (ratio1 + ratio2));
     var mixedG = Math.round((g1 * ratio1 + g2 * ratio2) / (ratio1 + ratio2));
     var mixedB = Math.round((b1 * ratio1 + b2 * ratio2) / (ratio1 + ratio2));
@@ -125,7 +121,6 @@ function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
     return mixedColor;
 }
 
-// helper convert RGB to hex
 function componentToHex(c) {
     var hex = c.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
@@ -161,10 +156,17 @@ function showHideColorSection(colorObject) {
     }
 };
 
+function startShakeAnimation(element) {
+    element.classList.add('shake-animation');
+    setTimeout(() => {
+        element.classList.remove('shake-animation');
+    }, 500);
+}
+
 var randomButton = document.getElementById('randomButton');
 
 randomButton.addEventListener('click', async function() {
-    randomButton.classList.add('shake-animation');
+    startShakeAnimation(randomButton);
     
     alice.colorValue = getRandomHexColor();
     alice.picker.value = alice.colorValue;
@@ -192,13 +194,8 @@ randomButton.addEventListener('click', async function() {
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
-
-    setTimeout(() => {
-        randomButton.classList.remove('shake-animation');
-    }, 500);
 });
 
-// helper function to randomly generate hex color
 function getRandomHexColor() {
     const letters = "0123456789ABCDEF";
     let color = "#";
