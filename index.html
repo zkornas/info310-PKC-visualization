@@ -54,11 +54,19 @@
             <div class="colorPickerContainer">
                 <label for="publicColorPicker">Public Color:</label>
                 <br>
-                <input type="color" id="publicColorPicker" class="colorPicker" value="#0000ff">
+                <input type="color" id="publicColorPicker" class="colorPicker" draggable="true" value="#0000ff">
             </div>
 
             <div>
                 <img id="randomButton" src="imgs/dice.png" class="charactersInPersonalSection shake-image" onclick="startShakeAnimation(this)">
+            </div>
+
+            <div>
+                <div id="eveColorMixer" class="selectedColor"></div>
+            </div>
+
+            <div>
+                <img id="eve" class="charactersInPersonalSection" src="imgs/eve_evil.PNG">
             </div>
         </div>
 

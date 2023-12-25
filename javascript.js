@@ -91,6 +91,13 @@ function generatePublicColor(colorObject) {
     colorObject.personalPublicColor = mixColorsWithRatio(colorObject.colorValue, public.colorValue, 1, 1);
     colorObject.personalPublicColorDiv.style.background = colorObject.personalPublicColor;
     colorObject.publicColorInSharedSecretDiv.style.background = colorObject.personalPublicColor;
+    // Make the element draggable
+    colorObject.personalPublicColorDiv.draggable = true;
+
+    // Add a dragstart event listener
+    colorObject.personalPublicColorDiv.addEventListener('dragstart', function (event) {
+        event.dataTransfer.setData('text/plain', colorObject.personalPublicColor);
+    });
 };
 
 alice.generateSharedSecretButton.addEventListener('click', function() {
@@ -165,10 +172,14 @@ randomButton.addEventListener('click', async function() {
     startShakeAnimation(randomButton);
     startShakeAnimation(alice.showHideButton);
     startShakeAnimation(bob.showHideButton);
+    startShakeAnimation(eve);
     
     randomColorGeneratorHelper(alice);
     randomColorGeneratorHelper(bob);
     randomColorGeneratorHelper(public);
+
+    eveMixedColor = undefined;
+    eveColorMixer.style.background = '#ffffff';
 
     alice.generatePublicColorButton.click();
     await sleep(100);
@@ -200,3 +211,43 @@ function getRandomHexColor() {
 function sleep(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 };
+
+var eve = document.getElementById('eve');
+var eveMixedColor;
+
+document.addEventListener('DOMContentLoaded', function () {
+    var eveColorMixer = document.getElementById('eveColorMixer');
+
+    public.picker.addEventListener('dragstart', function (event) {
+        event.dataTransfer.setData('text/plain', public.colorValue);
+    });
+
+    eveColorMixer.addEventListener('dragover', function (event) {
+        event.preventDefault();
+    });
+
+    eveColorMixer.addEventListener('drop', async function (event) {
+        event.preventDefault();
+
+        var draggedColor = event.dataTransfer.getData('text/plain');
+
+        if (eveMixedColor == undefined) {
+            eveMixedColor = draggedColor;
+            eveColorMixer.style.background = draggedColor;
+        } else {
+            var newMixedColor = mixColorsWithRatio(draggedColor, eveMixedColor, 1, 1);
+            eveMixedColor = newMixedColor;
+            eveColorMixer.style.background = newMixedColor;
+
+            eve.src = 'imgs/eve_sad.PNG';
+            await sleep(500);
+            eve.src = 'imgs/eve_evil.PNG';
+        }
+    });
+});
+
+eve.addEventListener('click', function() {
+   eveColorMixer.style.background = '#ffffff';
+   eveMixedColor = undefined;
+   startShakeAnimation(eve);
+});
