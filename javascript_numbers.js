@@ -25,7 +25,7 @@ function numberConstructor(picker, primePicker, numberValue, primeValue, warning
 var alice = new numberConstructor(
     document.getElementById('aliceNumberPicker'),
     undefined,
-    BigInt(document.getElementById('aliceNumberPicker').value),
+    Number(document.getElementById('aliceNumberPicker').value),
     undefined,
     document.getElementById('alicePrivateWarning'),
     document.getElementById('aliceGNumber'),
@@ -48,7 +48,7 @@ var alice = new numberConstructor(
 var bob = new numberConstructor(
     document.getElementById('bobNumberPicker'),
     undefined,
-    BigInt(document.getElementById('bobNumberPicker').value),
+    Number(document.getElementById('bobNumberPicker').value),
     undefined,
     document.getElementById('bobPrivateWarning'),
     document.getElementById('bobGNumber'),
@@ -118,10 +118,11 @@ function handleNumberPickerPrimeInput(numberObject) {
 }
 
 function isPrime(num) {
-    var sqrtnum=Math.floor(Math.sqrt(Number(num)));
-    var prime = num != 1;
+    number = Number(num);
+    var sqrtnum=Math.floor(Math.sqrt(number));
+    var prime = number != 1;
     for(var i=2; i<sqrtnum+1; i++) {
-        if(num % i == 0) {
+        if(number % i == 0) {
             prime = false;
             break;
         }
@@ -211,8 +212,10 @@ bob.generateSharedSecretButton.addEventListener('click', function(){
 alice.showHideButton.addEventListener('click', function(){
     if (alice.isHidden == false) {
         alice.showHideButton.src = 'imgs/alice_neutral_laptop.PNG';
+        alice.miniDivTwo.classList.toggle('blur');
     } else {
         alice.showHideButton.src = 'imgs/alice_happy_laptop.PNG';
+        alice.miniDivTwo.classList.toggle('blur');
     }
     showHideNumberSection(alice);
 });
@@ -288,7 +291,7 @@ randomButton.addEventListener('click', async function() {
 function getRandomPrime() {
     let randomNum;
     do {
-        randomNum = Math.floor(Math.random() * 90) + 11;
+        randomNum = Math.floor(Math.random() * 9990) + 11;
     } while (!isPrime(randomNum));
     return randomNum;
 }
