@@ -25,7 +25,7 @@ function numberConstructor(picker, primePicker, numberValue, primeValue, warning
 var alice = new numberConstructor(
     document.getElementById('aliceNumberPicker'),
     undefined,
-    Number(document.getElementById('aliceNumberPicker').value),
+    BigInt(document.getElementById('aliceNumberPicker').value),
     undefined,
     document.getElementById('alicePrivateWarning'),
     document.getElementById('aliceGNumber'),
@@ -48,7 +48,7 @@ var alice = new numberConstructor(
 var bob = new numberConstructor(
     document.getElementById('bobNumberPicker'),
     undefined,
-    Number(document.getElementById('bobNumberPicker').value),
+    BigInt(document.getElementById('bobNumberPicker').value),
     undefined,
     document.getElementById('bobPrivateWarning'),
     document.getElementById('bobGNumber'),
@@ -71,8 +71,8 @@ var bob = new numberConstructor(
 var public = new numberConstructor(
     document.getElementById('publicNumberPicker'),
     document.getElementById('publicNumberPickerPrime'),
-    Number(document.getElementById('publicNumberPicker').value),
-    Number(document.getElementById('publicNumberPickerPrime').value),
+    BigInt(document.getElementById('publicNumberPicker').value),
+    BigInt(document.getElementById('publicNumberPickerPrime').value),
     undefined,
     document.getElementById('publicNumberAlice'),
     document.getElementById('publicNumberBob')
@@ -118,7 +118,7 @@ function handleNumberPickerPrimeInput(numberObject) {
 }
 
 function isPrime(num) {
-    var sqrtnum=Math.floor(Math.sqrt(num));
+    var sqrtnum=Math.floor(Math.sqrt(Number(num)));
     var prime = num != 1;
     for(var i=2; i<sqrtnum+1; i++) {
         if(num % i == 0) {
@@ -182,26 +182,29 @@ bob.picker.addEventListener('input', function(){
 });
 
 alice.generatePublicNumberButton.addEventListener('click', function() {
-    alice.personalPublicNumber = Number((public.numberValue ** alice.numberValue) % public.primeValue);
+    
+    alice.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(alice.numberValue)) % BigInt(public.primeValue));
     alice.personalPublicNumberDiv.innerText = alice.personalPublicNumber;
     alice.publicNumberInSharedSecretDiv.innerText = alice.personalPublicNumber;
     console.log(alice.personalPublicNumber)
 });
 
 bob.generatePublicNumberButton.addEventListener('click', function() {
-    bob.personalPublicNumber = Number((public.numberValue ** bob.numberValue) % public.primeValue);
+    bob.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(bob.numberValue)) % BigInt(public.primeValue));
+    
     bob.personalPublicNumberDiv.innerText = bob.personalPublicNumber;
     bob.publicNumberInSharedSecretDiv.innerText = bob.personalPublicNumber;
     console.log(bob.personalPublicNumber)
 });
 
 alice.generateSharedSecretButton.addEventListener('click', function(){
-    alice.sharedSecretNumber = Number((bob.personalPublicNumber ** alice.numberValue) % public.primeValue);
+
+    alice.sharedSecretNumber = BigInt((BigInt(bob.personalPublicNumber) ** BigInt(alice.numberValue)) % BigInt(public.primeValue));
     alice.sharedSecretNumberDiv.innerText = alice.sharedSecretNumber;
 });
 
 bob.generateSharedSecretButton.addEventListener('click', function(){
-    bob.sharedSecretNumber = Number((alice.personalPublicNumber ** bob.numberValue) % public.primeValue);
+    bob.sharedSecretNumber = BigInt((BigInt(alice.personalPublicNumber) ** BigInt(bob.numberValue)) % BigInt(public.primeValue));    
     bob.sharedSecretNumberDiv.innerText = bob.sharedSecretNumber;
 });
 
