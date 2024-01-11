@@ -9,61 +9,81 @@
 </head>
 <body>
     <div class="flexbox">
-        <div id="aliceColorSection">
+        <div id="aliceNumberSection">
             <h1>Alice's View</h1>
-            <div id="aliceColors" class="blur">
-                <div class="colorPickerContainer">
-                    <label for="aliceColorPicker">Alice's Private Color:</label>
+            <div id="aliceNumbers" class="blur">
+                <div class="numberPickerContainer">
+                    <label for="aliceNumberPicker">Alice's Private Number:</label>
                     <br>
-                    <input type="color" id="aliceColorPicker" class="colorPicker" value="#ff0000">
+                    <input type="number" id="aliceNumberPicker" class="numberPicker" value=>
+                    <p id="alicePrivateWarning" style="color: red; background: yellow;">Error: Must be < N</p>
                 </div>
 
-                <div class="generateSharedSecretColorAlice">
-                    <input type="button" id="generateSharedSecretColorAlice" value="Generate Shared Secret">
+                <div class="generateSharedSecretNumberAlice">
+                    <input type="button" id="generateSharedSecretNumberAlice" value="Generate Shared Secret">
                     
                     <div class="flexbox">
-                        <div id="alicePrivateColorInSharedSecret" class="selectedColorMini"></div>
-                        <p>+</p>
-                        <div id="bobPublicColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>(</p>
+                        <div id="bobPublicNumberInSharedSecret" class="selectedNumberMini"></div>
+                        <p>^</p>
+                        <div id="alicePrivateNumberInSharedSecret" class="selectedNumberMini"></div>
+                        <p>)</p>
+                        <p>%</p>
+                        <div id="nNumberInAliceSecret" class="selectedNumberMini"></div>
                         <p>=</p>
                     </div>
-                    <label for="aliceSharedPrivateColor">Shared Secret Color:</label>
-                    <div id="aliceSharedPrivateColor" class="selectedColor"></div>
+                    <label for="aliceSharedPrivateNumber">Shared Secret Number:</label>
+                    <div id="aliceSharedPrivateNumber" class="selectedNumber"></div>
                 </div>
             </div>
 
         </div>
 
-        <div class="generateAlicePublicColor">
+        <div class="generateAlicePublicNumber">
             <div>
                 <img id="aliceOnLaptop" class="charactersInPersonalSection" src="imgs/alice_neutral_laptop.PNG">
             </div>
-            <input type="button" id="generateAlicePublicColor" value="Generate Alice's Public Color">
+            <input type="button" id="generateAlicePublicNumber" value="Generate Alice's Public Number">
             
             <div class="flexbox">
-                <div id="alicePrivateColorInPublicColor" class="selectedColorMini grey"></div>
-                <p>+</p>
-                <div id="publicColorAlice" class="selectedColorMini"></div>
+                <p>(</p>
+                <div id="aliceGNumber" class="selectedNumberMini"></div>
+                <p>^</p>
+                <div id="alicePrivateNumberInPublicNumber" class="selectedNumberMini"></div>
+                <p>)</p>
+                <p>%</p>
+                <div id="aliceNNumber" class="selectedNumberMini"></div>
                 <p>=</p>
             </div>
 
-            <label for="alicePublicColor">Alice's Public Color:</label>
-            <div id="alicePublicColor" class="selectedColor"></div>
+            <label for="alicePublicNumber">Alice's Public Number:</label>
+            <div id="alicePublicNumber" class="selectedNumber"></div>
         </div>
         
-        <div id="publicColorSection">
-            <div class="colorPickerContainer">
-                <label for="publicColorPicker">Public Color:</label>
+        <div id="publicNumberSection">
+            <div class="numberPickerContainer">
+                <label for="publicNumberPickerPrime">Public Prime Number (N):</label>
                 <br>
-                <input type="color" id="publicColorPicker" class="colorPicker" draggable="true" value="#0000ff">
+                <input type="number" id="publicNumberPickerPrime" class="" draggable="true" value=0>
+                <br>
+                <p id="primeNumberWarning" style="color: red; background: yellow;">Error: Number must be prime!</p>
             </div>
+
+            <div class="numberPickerContainer">
+                <label for="publicNumberPicker">Public Number (G):</label>
+                <br>
+                <input type="number" id="publicNumberPicker" class="" draggable="true" value=0>
+                <br>
+                <p id="gNumberWarning" style="color: red"style="color: red; background: yellow;">Error: Number must be less than N!</p>
+            </div>
+
 
             <div>
                 <img id="randomButton" src="imgs/dice.png" class="charactersInPersonalSection shake-image" onclick="startShakeAnimation(this)">
             </div>
 
             <div>
-                <div id="eveColorMixer" class="selectedColor"></div>
+                <div id="eveNumberMixer" class="selectedNumber"></div>
             </div>
 
             <div>
@@ -71,45 +91,54 @@
             </div>
         </div>
 
-        <div class="generateBobPublicColor">
+        <div class="generateBobPublicNumber">
             <div>
                 <img id="bobOnLaptop" class="charactersInPersonalSection" src="imgs/bob_neutral_laptop.PNG">
             </div>
 
-            <input type="button" id="generateBobPublicColor" value="Generate Bob's Public Color">
+            <input type="button" id="generateBobPublicNumber" value="Generate Bob's Public Number">
 
             <div class="flexbox">
-                <div id="bobPrivateColorInPublicColor" class="selectedColorMini grey"></div>
-                <p>+</p>
-                <div id="publicColorBob" class="selectedColorMini"></div>
+                <p>(</p>
+                <div id="bobGNumber" class="selectedNumberMini"></div>
+                <p>^</p>
+                <div id="bobPrivateNumberInPublicNumber" class="selectedNumberMini"></div>
+                <p>)</p>
+                <p>%</p>
+                <div id="bobNNumber" class="selectedNumberMini"></div>
                 <p>=</p>
             </div>
             
-            <label for="bobPublicColor">Bob's Public Color:</label>
-            <div id="bobPublicColor" class="selectedColor"></div>
+            <label for="bobPublicNumber">Bob's Public Number:</label>
+            <div id="bobPublicNumber" class="selectedNumber"></div>
         </div>
         
-        <div id="bobColorSection">
+        <div id="bobNumberSection">
             <h1>Bob's View</h1>
-            <div id="bobColors" class="blur">
-                <div class="colorPickerContainer">
-                    <label for="bobColorPicker">Bob's Private Color:</label>
+            <div id="bobNumbers" class="blur">
+                <div class="numberPickerContainer">
+                    <label for="bobNumberPicker">Bob's Private Number:</label>
                     <br>
-                    <input type="color" id="bobColorPicker" class="colorPicker" value="#00ff00">
+                    <input type="number" id="bobNumberPicker" class="numberPicker" value=>
+                    <p id="bobPrivateWarning" style="color: red; background: yellow;">Error: Must be < N</p>
                 </div>
 
-                <div class="generateSharedSecretColorBob">
-                    <input type="button" id="generateSharedSecretColorBob" value="Generate Shared Secret">
+                <div class="generateSharedSecretNumberBob">
+                    <input type="button" id="generateSharedSecretNumberBob" value="Generate Shared Secret">
                     
                     <div class="flexbox">
-                        <div id="bobPrivateColorInSharedSecret" class="selectedColorMini"></div>
-                        <p>+</p>
-                        <div id="alicePublicColorInSharedSecret" class="selectedColorMini"></div>
+                        <p>(</p>
+                        <div id="alicePublicNumberInSharedSecret" class="selectedNumberMini"></div>
+                        <p>^</p>
+                        <div id="bobPrivateNumberInSharedSecret" class="selectedNumberMini"></div>
+                        <p>)</p>
+                        <p>%</p>
+                        <div id="nNumberInBobSecret" class="selectedNumberMini"></div>
                         <p>=</p>
                     </div>
 
-                    <label for="bobSharedPrivateColor">Shared Secret Color:</label>
-                    <div id="bobSharedPrivateColor" class="selectedColor"></div>
+                    <label for="bobSharedPrivateNumber">Shared Secret Number:</label>
+                    <div id="bobSharedPrivateNumber" class="selectedNumber"></div>
                 </div>
             </div>
         </div>

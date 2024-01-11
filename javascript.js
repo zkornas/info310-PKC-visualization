@@ -1,134 +1,209 @@
-function colorConstructor(picker, colorValue, miniDivOne, miniDivTwo, personalPublicColor, personalPublicColorDiv, publicColorInSharedSecretDiv, sharedSecretColor, sharedSecretColorDiv, generatePublicColorButton, generateSharedSecretButton, showHideButton, colorsDiv, isHidden) {
+function numberConstructor(picker, primePicker, numberValue, primeValue, warning, miniDivOne, miniDivTwo, miniDivThree, miniDivFour, miniDivFive, personalPublicNumber, personalPublicNumberDiv, publicNumberInSharedSecretDiv, sharedSecretNumber, sharedSecretNumberDiv, generatePublicNumberButton, generateSharedSecretButton, showHideButton, numbersDiv, isHidden) {
     this.picker = picker;
-    this.colorValue = colorValue;
+    this.primePicker = primePicker;
+    this.numberValue = numberValue;
+    this.primeValue = primeValue;
+    this.warning = warning;
     this.miniDivOne = miniDivOne;
     this.miniDivTwo = miniDivTwo;
+    this.miniDivThree = miniDivThree;
+    this.miniDivFour = miniDivFour;
+    this.miniDivFive = miniDivFive;
 
-    miniDivOne.style.backgroundColor = colorValue;
-    miniDivTwo.style.backgroundColor = colorValue;
-
-    this.personalPublicColor = personalPublicColor;
-    this.personalPublicColorDiv = personalPublicColorDiv;
-    this.publicColorInSharedSecretDiv = publicColorInSharedSecretDiv;
-    this.sharedSecretColor = sharedSecretColor;
-    this.sharedSecretColorDiv = sharedSecretColorDiv;
-    this.generatePublicColorButton = generatePublicColorButton;
+    this.personalPublicNumber = personalPublicNumber;
+    this.personalPublicNumberDiv = personalPublicNumberDiv;
+    this.publicNumberInSharedSecretDiv = publicNumberInSharedSecretDiv;
+    this.sharedSecretNumber = sharedSecretNumber;
+    this.sharedSecretNumberDiv = sharedSecretNumberDiv;
+    this.generatePublicNumberButton = generatePublicNumberButton;
     this.generateSharedSecretButton = generateSharedSecretButton;
     this.showHideButton = showHideButton;
-    this.colorsDiv = colorsDiv;
+    this.numbersDiv = numbersDiv;
     this.isHidden = isHidden;
 };
 
-var alice = new colorConstructor(
-    document.getElementById('aliceColorPicker'),
-    document.getElementById('aliceColorPicker').value,
-    document.getElementById('alicePrivateColorInPublicColor'),
-    document.getElementById('alicePrivateColorInSharedSecret'),
+var alice = new numberConstructor(
+    document.getElementById('aliceNumberPicker'),
     undefined,
-    document.getElementById('alicePublicColor'),
-    document.getElementById('alicePublicColorInSharedSecret'),
+    Number(document.getElementById('aliceNumberPicker').value),
     undefined,
-    document.getElementById('aliceSharedPrivateColor'),
-    document.getElementById('generateAlicePublicColor'),
-    document.getElementById('generateSharedSecretColorAlice'),
+    document.getElementById('alicePrivateWarning'),
+    document.getElementById('aliceGNumber'),
+    document.getElementById('alicePrivateNumberInPublicNumber'),
+    document.getElementById('aliceNNumber'),
+    document.getElementById('nNumberInAliceSecret'),
+    document.getElementById('alicePrivateNumberInSharedSecret'),
+    undefined,
+    document.getElementById('alicePublicNumber'),
+    document.getElementById('alicePublicNumberInSharedSecret'),
+    undefined,
+    document.getElementById('aliceSharedPrivateNumber'),
+    document.getElementById('generateAlicePublicNumber'),
+    document.getElementById('generateSharedSecretNumberAlice'),
     document.getElementById('aliceOnLaptop'),
-    document.getElementById('aliceColors'),
+    document.getElementById('aliceNumbers'),
     true
 )
 
-var bob = new colorConstructor(
-    document.getElementById('bobColorPicker'),
-    document.getElementById('bobColorPicker').value,
-    document.getElementById('bobPrivateColorInPublicColor'),
-    document.getElementById('bobPrivateColorInSharedSecret'),
+var bob = new numberConstructor(
+    document.getElementById('bobNumberPicker'),
     undefined,
-    document.getElementById('bobPublicColor'),
-    document.getElementById('bobPublicColorInSharedSecret'),
+    Number(document.getElementById('bobNumberPicker').value),
     undefined,
-    document.getElementById('bobSharedPrivateColor'),
-    document.getElementById('generateBobPublicColor'),
-    document.getElementById('generateSharedSecretColorBob'),
+    document.getElementById('bobPrivateWarning'),
+    document.getElementById('bobGNumber'),
+    document.getElementById('bobPrivateNumberInPublicNumber'),
+    document.getElementById('bobNNumber'),
+    document.getElementById('nNumberInBobSecret'),
+    document.getElementById('bobPrivateNumberInSharedSecret'),
+    undefined,
+    document.getElementById('bobPublicNumber'),
+    document.getElementById('bobPublicNumberInSharedSecret'),
+    undefined,
+    document.getElementById('bobSharedPrivateNumber'),
+    document.getElementById('generateBobPublicNumber'),
+    document.getElementById('generateSharedSecretNumberBob'),
     document.getElementById('bobOnLaptop'),
-    document.getElementById('bobColors'),
+    document.getElementById('bobNumbers'),
     true
 )
 
-var public = new colorConstructor(
-    document.getElementById('publicColorPicker'),
-    document.getElementById('publicColorPicker').value,
-    document.getElementById('publicColorAlice'),
-    document.getElementById('publicColorBob')
-)
+var public = new numberConstructor(
+    document.getElementById('publicNumberPicker'),
+    document.getElementById('publicNumberPickerPrime'),
+    Number(document.getElementById('publicNumberPicker').value),
+    Number(document.getElementById('publicNumberPickerPrime').value),
+    undefined,
+    document.getElementById('publicNumberAlice'),
+    document.getElementById('publicNumberBob')
+);
 
-function handleColorPickerInput(colorObject) {
-   var selectedColor = colorObject.picker.value;
-   colorObject.colorValue = selectedColor;
-   colorObject.miniDivOne.style.background = selectedColor;
-   colorObject.miniDivTwo.style.background = selectedColor;
-};
-
-alice.picker.addEventListener('input', function() {
-    handleColorPickerInput(alice);
-});
-
-bob.picker.addEventListener('input', function() {
-    handleColorPickerInput(bob);
-});
-
-public.picker.addEventListener('input', function() {
-    handleColorPickerInput(public);
-});
-
-alice.generatePublicColorButton.addEventListener('click', function() {
-    generatePublicColor(alice);
-})
-
-bob.generatePublicColorButton.addEventListener('click', function() {
-    generatePublicColor(bob);
-});
-
-function generatePublicColor(colorObject) {
-    colorObject.personalPublicColor = mixColorsWithRatio(colorObject.colorValue, public.colorValue, 1, 1);
-    colorObject.personalPublicColorDiv.style.background = colorObject.personalPublicColor;
-    colorObject.publicColorInSharedSecretDiv.style.background = colorObject.personalPublicColor;
-    colorObject.personalPublicColorDiv.draggable = true;
-    colorObject.personalPublicColorDiv.addEventListener('dragstart', function (event) {
-        event.dataTransfer.setData('text/plain', colorObject.personalPublicColor);
-    });
-};
-
-alice.generateSharedSecretButton.addEventListener('click', function() {
-    alice.sharedSecretColor = mixColorsWithRatio(alice.colorValue, bob.personalPublicColor, 1, 2);
-    alice.sharedSecretColorDiv.style.backgroundColor = alice.sharedSecretColor;
-});
-
-bob.generateSharedSecretButton.addEventListener('click', function() {
-    bob.sharedSecretColor = mixColorsWithRatio(bob.colorValue, alice.personalPublicColor, 1, 2);
-    bob.sharedSecretColorDiv.style.backgroundColor = bob.sharedSecretColor;
-});
-
-function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
-    var r1 = parseInt(color1.substring(1, 3), 16);
-    var g1 = parseInt(color1.substring(3, 5), 16);
-    var b1 = parseInt(color1.substring(5, 7), 16);
-
-    var r2 = parseInt(color2.substring(1, 3), 16);
-    var g2 = parseInt(color2.substring(3, 5), 16);
-    var b2 = parseInt(color2.substring(5, 7), 16);
-
-    var mixedR = Math.round((r1 * ratio1 + r2 * ratio2) / (ratio1 + ratio2));
-    var mixedG = Math.round((g1 * ratio1 + g2 * ratio2) / (ratio1 + ratio2));
-    var mixedB = Math.round((b1 * ratio1 + b2 * ratio2) / (ratio1 + ratio2));
-
-    var mixedColor = '#' + componentToHex(mixedR) + componentToHex(mixedG) + componentToHex(mixedB);
-
-    return mixedColor;
+if (alice.numberValue < public.primeValue){
+    alice.warning.style.display = "none";
+} else {
+    alice.warning.style.display = "block";
 }
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? '0' + hex : hex;
+if (bob.numberValue < public.primeValue){
+    bob.warning.style.display = "none";
+} else {
+    bob.warning.style.display = "block";
 }
+
+console.log("G: ", public.numberValue, " ", typeof public.numberValue);
+console.log("N: ", public.primeValue, " ", typeof public.primeValue);
+
+primeWarning = document.getElementById('primeNumberWarning');
+if (isPrime(public.primeValue)) {
+    primeWarning.style.display = "none";
+} else {
+    primeWarning.style.display = "block";
+}
+
+gNumberWarning = document.getElementById('gNumberWarning');
+if (public.numberValue < public.primeValue){
+    gNumberWarning.style.display = "none";
+} else {
+    gNumberWarning.style.display = "block";
+}
+
+function handleNumberPickerInput(numberObject) {
+    var selectedNumber = parseInt(numberObject.picker.value, 10);
+    numberObject.numberValue = selectedNumber;
+}
+
+function handleNumberPickerPrimeInput(numberObject) {
+    var selectedNumber = parseInt(numberObject.primePicker.value, 10);
+    numberObject.primeValue = selectedNumber;
+}
+
+function isPrime(num) {
+    var sqrtnum=Math.floor(Math.sqrt(num));
+    var prime = num != 1;
+    for(var i=2; i<sqrtnum+1; i++) {
+        if(num % i == 0) {
+            prime = false;
+            break;
+        }
+    }
+    return prime;
+}
+
+function isGLessThanN() {
+    if (public.numberValue < public.primeValue){
+        gNumberWarning.style.display = "none";
+    } else {
+        gNumberWarning.style.display = "block";
+    }
+}
+
+
+public.primePicker.addEventListener('input', function() {
+    handleNumberPickerPrimeInput(public);
+    if (isPrime(public.primeValue)) {
+        primeWarning.style.display = "none";
+    } else {
+        primeWarning.style.display = "block";
+    }
+    isGLessThanN();
+    alice.miniDivThree.innerText = public.primeValue;
+    bob.miniDivThree.innerText = public.primeValue;
+    alice.miniDivFour.innerText = public.primeValue;
+    bob.miniDivFour.innerText = public.primeValue;
+});
+
+public.picker.addEventListener('input', function(){
+    handleNumberPickerInput(public);
+    isGLessThanN();
+    alice.miniDivOne.innerText = public.numberValue;
+    bob.miniDivOne.innerText = public.numberValue;
+});
+
+alice.picker.addEventListener('input', function(){
+    handleNumberPickerInput(alice);
+    alice.miniDivTwo.innerText = alice.numberValue;
+    alice.miniDivFive.innerText = alice.numberValue;
+    if (alice.numberValue < public.primeValue){
+        alice.warning.style.display = "none";
+    } else {
+        alice.warning.style.display = "block";
+    }
+});
+
+bob.picker.addEventListener('input', function(){
+    handleNumberPickerInput(bob);
+    bob.miniDivTwo.innerText = bob.numberValue;
+    bob.miniDivFive.innerText = bob.numberValue;
+    if (bob.numberValue < public.primeValue){
+        bob.warning.style.display = "none";
+    } else {
+        bob.warning.style.display = "block";
+    }
+});
+
+alice.generatePublicNumberButton.addEventListener('click', function() {
+    alice.personalPublicNumber = Number((public.numberValue ** alice.numberValue) % public.primeValue);
+    alice.personalPublicNumberDiv.innerText = alice.personalPublicNumber;
+    alice.publicNumberInSharedSecretDiv.innerText = alice.personalPublicNumber;
+    console.log(alice.personalPublicNumber)
+});
+
+bob.generatePublicNumberButton.addEventListener('click', function() {
+    bob.personalPublicNumber = Number((public.numberValue ** bob.numberValue) % public.primeValue);
+    bob.personalPublicNumberDiv.innerText = bob.personalPublicNumber;
+    bob.publicNumberInSharedSecretDiv.innerText = bob.personalPublicNumber;
+    console.log(bob.personalPublicNumber)
+});
+
+alice.generateSharedSecretButton.addEventListener('click', function(){
+    alice.sharedSecretNumber = Number((bob.personalPublicNumber ** alice.numberValue) % public.primeValue);
+    alice.sharedSecretNumberDiv.innerText = alice.sharedSecretNumber;
+});
+
+bob.generateSharedSecretButton.addEventListener('click', function(){
+    bob.sharedSecretNumber = Number((alice.personalPublicNumber ** bob.numberValue) % public.primeValue);
+    bob.sharedSecretNumberDiv.innerText = bob.sharedSecretNumber;
+});
 
 alice.showHideButton.addEventListener('click', function(){
     if (alice.isHidden == false) {
@@ -136,7 +211,7 @@ alice.showHideButton.addEventListener('click', function(){
     } else {
         alice.showHideButton.src = 'imgs/alice_happy_laptop.PNG';
     }
-    showHideColorSection(alice);
+    showHideNumberSection(alice);
 });
 
 bob.showHideButton.addEventListener('click', function(){
@@ -145,15 +220,14 @@ bob.showHideButton.addEventListener('click', function(){
     } else {
         bob.showHideButton.src = 'imgs/bob_happy_laptop.PNG';
     }
-    showHideColorSection(bob);
+    showHideNumberSection(bob);
 });
 
-function showHideColorSection(colorObject) {
-    const isHidden = !colorObject.isHidden;
+function showHideNumberSection(numberObject) {
+    const isHidden = !numberObject.isHidden;
 
-    colorObject.colorsDiv.classList.toggle('blur', isHidden);
-    colorObject.miniDivOne.classList.toggle('grey', isHidden);
-    colorObject.isHidden = isHidden;
+    numberObject.numbersDiv.classList.toggle('blur', isHidden);
+    numberObject.isHidden = isHidden;
 };
 
 function startShakeAnimation(element) {
@@ -170,39 +244,50 @@ randomButton.addEventListener('click', async function() {
     startShakeAnimation(alice.showHideButton);
     startShakeAnimation(bob.showHideButton);
     startShakeAnimation(eve);
-    
-    randomColorGeneratorHelper(alice);
-    randomColorGeneratorHelper(bob);
-    randomColorGeneratorHelper(public);
 
-    eveMixedColor = undefined;
-    eveColorMixer.style.background = '#ffffff';
-
-    alice.generatePublicColorButton.click();
+    public.primeValue = getRandomPrime()
+    public.primePicker.value = public.primeValue;
     await sleep(100);
 
-    bob.generatePublicColorButton.click();
+    public.numberValue = Math.floor(Math.random() * public.primeValue);
+    public.picker.value = public.numberValue;
+    await sleep(100);
+
+    alice.miniDivOne.innerText = public.numberValue;
+    bob.miniDivOne.innerText = public.numberValue;
+    alice.miniDivThree.innerText = public.primeValue;
+    bob.miniDivThree.innerText = public.primeValue;
+    alice.miniDivFour.innerText = public.primeValue;
+    bob.miniDivFour.innerText = public.primeValue;
+
+    alice.numberValue = Math.floor(Math.random() * public.primeValue);
+    alice.picker.value = alice.numberValue;
+    alice.miniDivTwo.innerText = alice.numberValue;
+    alice.miniDivFive.innerText = alice.numberValue;
+    await sleep(100);
+
+    bob.numberValue = Math.floor(Math.random() * public.primeValue);
+    bob.picker.value = bob.numberValue;
+    bob.miniDivTwo.innerText = bob.numberValue;
+    bob.miniDivFive.innerText = bob.numberValue;
+    await sleep(100);
+    
+    alice.generatePublicNumberButton.click();
+    await sleep(100);
+
+    bob.generatePublicNumberButton.click();
     await sleep(100);
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
 });
 
-async function randomColorGeneratorHelper(colorObject) {
-    colorObject.colorValue = getRandomHexColor();
-    colorObject.picker.value = colorObject.colorValue;
-    colorObject.miniDivOne.style.backgroundColor = colorObject.colorValue;
-    colorObject.miniDivTwo.style.backgroundColor = colorObject.colorValue;
-    await sleep(100);
-};
-
-function getRandomHexColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+function getRandomPrime() {
+    let randomNum;
+    do {
+        randomNum = Math.floor(Math.random() * 90) + 11;
+    } while (!isPrime(randomNum));
+    return randomNum;
 }
 
 function sleep(time) {
@@ -210,41 +295,7 @@ function sleep(time) {
 };
 
 var eve = document.getElementById('eve');
-var eveMixedColor;
-
-document.addEventListener('DOMContentLoaded', function () {
-    var eveColorMixer = document.getElementById('eveColorMixer');
-
-    public.picker.addEventListener('dragstart', function (event) {
-        event.dataTransfer.setData('text/plain', public.colorValue);
-    });
-
-    eveColorMixer.addEventListener('dragover', function (event) {
-        event.preventDefault();
-    });
-
-    eveColorMixer.addEventListener('drop', async function (event) {
-        event.preventDefault();
-
-        var draggedColor = event.dataTransfer.getData('text/plain');
-
-        if (eveMixedColor == undefined) {
-            eveMixedColor = draggedColor;
-            eveColorMixer.style.background = draggedColor;
-        } else {
-            var newMixedColor = mixColorsWithRatio(draggedColor, eveMixedColor, 1, 1);
-            eveMixedColor = newMixedColor;
-            eveColorMixer.style.background = newMixedColor;
-
-            eve.src = 'imgs/eve_sad.PNG';
-            await sleep(500);
-            eve.src = 'imgs/eve_evil.PNG';
-        }
-    });
-});
 
 eve.addEventListener('click', function() {
-   eveColorMixer.style.background = '#ffffff';
-   eveMixedColor = undefined;
    startShakeAnimation(eve);
 });

@@ -13,49 +13,39 @@ body {
     flex-wrap: nowrap;
 }
 
-.colorPickerContainer {
+.numberPickerContainer {
     margin-bottom: 20px;
 }
 
-.colorPicker {
-    width: 200px;
-    height: 200px;
-}
-
-.selectedColor {
+.selectedNumber {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    height: 200px;
     margin-top: 10px;
-    border: 5px solid #ccc;
     margin-bottom: 20px;
     text-align: center;
-    background-color: #ffffff;
 }
 
-.selectedColorLabel {
+.selectedNumberLabel {
     font-weight: bold;
 }
 
-.selectedColorMini {
+.selectedNumberMini {
     width: 20px;
     height: 20px;
     margin-top: 15px;
-    border: 1px solid #ccc;
 }
 
-#aliceColorSection,
-#bobColorSection {
+#aliceNumberSection,
+#bobNumberSection {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
 }
 
-#bobColors,
-#aliceColors {
+#bobNumbers,
+#aliceNumbers {
     border: 2px dashed black;
     padding: 10px;
     transition: filter 0.3s ease-in-out;
@@ -66,36 +56,40 @@ body {
     pointer-events: none;
 }
 
-#aliceColorSection .colorPickerContainer,
-#bobColorSection .colorPickerContainer,
-#aliceColorSection .generateAlicePublicColor,
-#bobColorSection .generateBobPublicColor,
-#aliceColorSection .generateSharedSecretColor,
-#bobColorSection .generateSharedSecretColor {
+.primeNumberWarning {
+    color: red;
+}
+
+#aliceNumberSection .numberPickerContainer,
+#bobNumberSection .numberPickerContainer,
+#aliceNumberSection .generateAlicePublicNumber,
+#bobNumberSection .generateBobPublicNumber,
+#aliceNumberSection .generateSharedSecretNumber,
+#bobNumberSection .generateSharedSecretNumber {
     margin-top: 20px;
 }
 
 
-.generateSharedSecretColorAlice input,
-.generateSharedSecretColorBob input {
+.generateSharedSecretNumberAlice input,
+.generateSharedSecretNumberBob input {
     margin-top: 0;
 }
 
-.generateAlicePublicColor,
-.generateBobPublicColor{
+.generateAlicePublicNumber,
+.generateBobPublicNumber{
     align-self: top;
 }
 
-.generateAlicePublicColor,
-.generateBobPublicColor,
-.generateSharedSecretColor {
+.generateAlicePublicNumber,
+.generateBobPublicNumber,
+.generateSharedSecretNumber {
     margin-top: 20px;
     text-align: center;
 }
 
 
 
-.generateSharedSecretColor input {
+.generateSharedSecretNumber input {
     margin-top: 10px;
 }
 
@@ -137,8 +131,4 @@ body {
 20%, 40%, 60%, 80% {
     transform: translateX(5px);
 }
-}
-
-#eveColorMixer {
-    border-radius: 50%;
 }
