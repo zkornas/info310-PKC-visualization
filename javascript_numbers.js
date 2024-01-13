@@ -278,6 +278,8 @@ randomButton.addEventListener('click', async function() {
     primeWarning.style.display = "none";
     gNumberWarning.style.display = "none";
 
+    updatePublicNumberButtonStatus();
+
     public.primeValue = getRandomPrime()
     public.primePicker.value = public.primeValue;
     await sleep(100);
@@ -313,8 +315,6 @@ randomButton.addEventListener('click', async function() {
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
-
-    updatePublicNumberButtonStatus();
 });
 
 function getRandomPrime() {
