@@ -138,6 +138,20 @@ function isGLessThanN() {
     }
 }
 
+function updatePublicNumberButtonStatus() {
+    if (primeWarning.style.display == "block" || gNumberWarning.style.display == "block" || alice.warning.style.display == "block" || bob.warning.style.display == "block") {
+        alice.generatePublicNumberButton.disabled = true;
+        bob.generatePublicNumberButton.disabled = true;
+        alice.generateSharedSecretButton.disabled = true;
+        bob.generateSharedSecretButton.disabled = true;
+    } else {
+        alice.generatePublicNumberButton.disabled = false;
+        bob.generatePublicNumberButton.disabled = false;
+        alice.generateSharedSecretButton.disabled = false;
+        bob.generateSharedSecretButton.disabled = false;
+    }
+}
+
 
 public.primePicker.addEventListener('input', function() {
     handleNumberPickerPrimeInput(public);
@@ -151,6 +165,7 @@ public.primePicker.addEventListener('input', function() {
     bob.miniDivThree.innerText = public.primeValue;
     alice.miniDivFour.innerText = public.primeValue;
     bob.miniDivFour.innerText = public.primeValue;
+    updatePublicNumberButtonStatus();
 });
 
 public.picker.addEventListener('input', function(){
@@ -158,6 +173,7 @@ public.picker.addEventListener('input', function(){
     isGLessThanN();
     alice.miniDivOne.innerText = public.numberValue;
     bob.miniDivOne.innerText = public.numberValue;
+    updatePublicNumberButtonStatus();
 });
 
 alice.picker.addEventListener('input', function(){
@@ -169,6 +185,7 @@ alice.picker.addEventListener('input', function(){
     } else {
         alice.warning.style.display = "block";
     }
+    updatePublicNumberButtonStatus();
 });
 
 bob.picker.addEventListener('input', function(){
@@ -180,6 +197,7 @@ bob.picker.addEventListener('input', function(){
     } else {
         bob.warning.style.display = "block";
     }
+    updatePublicNumberButtonStatus();
 });
 
 alice.generatePublicNumberButton.addEventListener('click', function() {
@@ -293,6 +311,8 @@ randomButton.addEventListener('click', async function() {
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
+
+    updatePublicNumberButtonStatus();
 });
 
 function getRandomPrime() {
