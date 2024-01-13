@@ -107,6 +107,8 @@ if (public.numberValue < public.primeValue){
     gNumberWarning.style.display = "block";
 }
 
+updatePublicNumberButtonStatus();
+
 function handleNumberPickerInput(numberObject) {
     var selectedNumber = parseInt(numberObject.picker.value, 10);
     numberObject.numberValue = selectedNumber;
