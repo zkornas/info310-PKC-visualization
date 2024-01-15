@@ -188,6 +188,17 @@ public.primePicker.addEventListener('input', function() {
     alice.miniDivFour.innerText = public.primeValue;
     bob.miniDivFour.innerText = public.primeValue;
     updateAllNumberButtonStatus();
+    if (alice.numberValue < public.primeValue){
+        alice.warning.style.display = "none";
+    } else {
+        alice.warning.style.display = "block";
+    }
+
+    if (bob.numberValue < public.primeValue){
+        bob.warning.style.display = "none";
+    } else {
+        bob.warning.style.display = "block";
+    }
 });
 
 public.picker.addEventListener('input', function(){
