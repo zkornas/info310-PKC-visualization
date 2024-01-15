@@ -163,13 +163,11 @@ function updateAllNumberButtonStatus() {
         bob.generateSharedSecretButton.disabled = false;
     }
 
-    console.log("Checking private number value...")
     if (alice.numberValue == 0 || bob.numberValue == 0) {
         public.primePicker.disabled = true;
         public.picker.disabled = true;
         noPrivateWarning.style.display = "block";
     } else {
-        console.log("They are both set!")
         public.primePicker.disabled = false;
         public.picker.disabled = false;
         noPrivateWarning.style.display = "none";
@@ -225,7 +223,6 @@ bob.picker.addEventListener('input', function(){
 });
 
 alice.generatePublicNumberButton.addEventListener('click', function() {
-    
     alice.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(alice.numberValue)) % BigInt(public.primeValue));
     alice.personalPublicNumberDiv.innerText = alice.personalPublicNumber;
     alice.publicNumberInSharedSecretDiv.innerText = alice.personalPublicNumber;
@@ -317,24 +314,26 @@ randomButton.addEventListener('click', async function() {
     bob.miniDivFour.innerText = public.primeValue;
 
     alice.numberValue = Math.floor(Math.random() * public.primeValue);
+    console.log("Alice number: ", alice.numberValue);
     alice.picker.value = alice.numberValue;
     alice.miniDivTwo.innerText = alice.numberValue;
     alice.miniDivFive.innerText = alice.numberValue;
     await sleep(100);
 
     bob.numberValue = Math.floor(Math.random() * public.primeValue);
+    console.log("Bob number: ", bob.numberValue);
     bob.picker.value = bob.numberValue;
     bob.miniDivTwo.innerText = bob.numberValue;
     bob.miniDivFive.innerText = bob.numberValue;
     await sleep(100);
+
+    updateAllNumberButtonStatus();
     
     alice.generatePublicNumberButton.click();
     await sleep(100);
 
     bob.generatePublicNumberButton.click();
     await sleep(100);
-
-    updateAllNumberButtonStatus();
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
