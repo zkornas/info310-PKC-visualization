@@ -107,7 +107,17 @@ if (public.numberValue < public.primeValue){
     gNumberWarning.style.display = "block";
 }
 
-updatePublicNumberButtonStatus();
+console.log(bob.numberValue);
+
+noPrivateWarning = document.getElementById('noPrivateWarning');
+if (alice.numberValue == 0 || bob.numberValue == 0) {
+    noPrivateWarning.style.display = "block";
+} else {
+    noPrivateWarning.style.display = "none";
+}
+
+
+updateAllNumberButtonStatus();
 
 function handleNumberPickerInput(numberObject) {
     var selectedNumber = parseInt(numberObject.picker.value, 10);
@@ -140,7 +150,7 @@ function isGLessThanN() {
     }
 }
 
-function updatePublicNumberButtonStatus() {
+function updateAllNumberButtonStatus() {
     if (primeWarning.style.display == "block" || gNumberWarning.style.display == "block" || alice.warning.style.display == "block" || bob.warning.style.display == "block") {
         alice.generatePublicNumberButton.disabled = true;
         bob.generatePublicNumberButton.disabled = true;
@@ -151,6 +161,18 @@ function updatePublicNumberButtonStatus() {
         bob.generatePublicNumberButton.disabled = false;
         alice.generateSharedSecretButton.disabled = false;
         bob.generateSharedSecretButton.disabled = false;
+    }
+
+    console.log("Checking private number value...")
+    if (alice.numberValue == 0 || bob.numberValue == 0) {
+        public.primePicker.disabled = true;
+        public.picker.disabled = true;
+        noPrivateWarning.style.display = "block";
+    } else {
+        console.log("They are both set!")
+        public.primePicker.disabled = false;
+        public.picker.disabled = false;
+        noPrivateWarning.style.display = "none";
     }
 }
 
@@ -167,7 +189,7 @@ public.primePicker.addEventListener('input', function() {
     bob.miniDivThree.innerText = public.primeValue;
     alice.miniDivFour.innerText = public.primeValue;
     bob.miniDivFour.innerText = public.primeValue;
-    updatePublicNumberButtonStatus();
+    updateAllNumberButtonStatus();
 });
 
 public.picker.addEventListener('input', function(){
@@ -175,7 +197,7 @@ public.picker.addEventListener('input', function(){
     isGLessThanN();
     alice.miniDivOne.innerText = public.numberValue;
     bob.miniDivOne.innerText = public.numberValue;
-    updatePublicNumberButtonStatus();
+    updateAllNumberButtonStatus();
 });
 
 alice.picker.addEventListener('input', function(){
@@ -187,7 +209,7 @@ alice.picker.addEventListener('input', function(){
     } else {
         alice.warning.style.display = "block";
     }
-    updatePublicNumberButtonStatus();
+    updateAllNumberButtonStatus();
 });
 
 bob.picker.addEventListener('input', function(){
@@ -199,7 +221,7 @@ bob.picker.addEventListener('input', function(){
     } else {
         bob.warning.style.display = "block";
     }
-    updatePublicNumberButtonStatus();
+    updateAllNumberButtonStatus();
 });
 
 alice.generatePublicNumberButton.addEventListener('click', function() {
@@ -278,7 +300,6 @@ randomButton.addEventListener('click', async function() {
     primeWarning.style.display = "none";
     gNumberWarning.style.display = "none";
 
-    updatePublicNumberButtonStatus();
 
     public.primeValue = getRandomPrime()
     public.primePicker.value = public.primeValue;
@@ -312,6 +333,8 @@ randomButton.addEventListener('click', async function() {
 
     bob.generatePublicNumberButton.click();
     await sleep(100);
+
+    updateAllNumberButtonStatus();
 
     alice.generateSharedSecretButton.click();
     bob.generateSharedSecretButton.click();
