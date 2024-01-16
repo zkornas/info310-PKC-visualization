@@ -109,13 +109,6 @@ if (public.numberValue < public.primeValue){
 
 console.log(bob.numberValue);
 
-noPrivateWarning = document.getElementById('noPrivateWarning');
-if (alice.numberValue == 0 || bob.numberValue == 0) {
-    noPrivateWarning.style.display = "block";
-} else {
-    noPrivateWarning.style.display = "none";
-}
-
 
 updateAllNumberButtonStatus();
 
@@ -161,16 +154,6 @@ function updateAllNumberButtonStatus() {
         bob.generatePublicNumberButton.disabled = false;
         alice.generateSharedSecretButton.disabled = false;
         bob.generateSharedSecretButton.disabled = false;
-    }
-
-    if (alice.numberValue == 0 || bob.numberValue == 0) {
-        public.primePicker.disabled = true;
-        public.picker.disabled = true;
-        noPrivateWarning.style.display = "block";
-    } else {
-        public.primePicker.disabled = false;
-        public.picker.disabled = false;
-        noPrivateWarning.style.display = "none";
     }
 }
 
