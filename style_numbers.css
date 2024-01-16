@@ -9,6 +9,16 @@ body {
     background-color: #f3d2fc;
 }
 
+#fixedImage {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+#fixedImage img {
+    width: 50%;
+}
+
 .flexbox {
     display: flex;
     justify-content: space-evenly;

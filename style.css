@@ -17,6 +17,16 @@ body {
     margin-bottom: 20px;
 }
 
+#fixedImage {
+    position: fixed;
+    bottom: 20px;
+    right: 15%;
+}
+
+#fixedImage img {
+    width: 50%;
+}
+
 .colorPicker {
     width: 200px;
     height: 200px;
