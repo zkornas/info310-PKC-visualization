@@ -100,11 +100,6 @@ body {
     text-align: center;
 }
 
-.imglink {
-    max-width: 500px;
-    padding-top: 200px;
-}
-
 .generateSharedSecretNumber input {
     margin-top: 10px;
 }
