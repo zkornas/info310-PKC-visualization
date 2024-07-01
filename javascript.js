@@ -65,7 +65,17 @@ function handleColorPickerInput(colorObject) {
    colorObject.colorValue = selectedColor;
    colorObject.miniDivOne.style.background = selectedColor;
    colorObject.miniDivTwo.style.background = selectedColor;
+   generatePublicColor(alice);
+   generatePublicColor(bob);
+   generateSharedSecretColor(alice, bob);
+   generateSharedSecretColor(bob, alice);
 };
+
+generatePublicColor(alice);
+generatePublicColor(bob);
+
+generateSharedSecretColor(alice, bob);
+generateSharedSecretColor(bob, alice);
 
 alice.picker.addEventListener('input', function() {
     handleColorPickerInput(alice);
@@ -79,14 +89,6 @@ public.picker.addEventListener('input', function() {
     handleColorPickerInput(public);
 });
 
-alice.generatePublicColorButton.addEventListener('click', function() {
-    generatePublicColor(alice);
-})
-
-bob.generatePublicColorButton.addEventListener('click', function() {
-    generatePublicColor(bob);
-});
-
 function generatePublicColor(colorObject) {
     colorObject.personalPublicColor = mixColorsWithRatio(colorObject.colorValue, public.colorValue, 1, 1);
     colorObject.personalPublicColorDiv.style.background = colorObject.personalPublicColor;
@@ -97,15 +99,10 @@ function generatePublicColor(colorObject) {
     });
 };
 
-alice.generateSharedSecretButton.addEventListener('click', function() {
-    alice.sharedSecretColor = mixColorsWithRatio(alice.colorValue, bob.personalPublicColor, 1, 2);
-    alice.sharedSecretColorDiv.style.backgroundColor = alice.sharedSecretColor;
-});
-
-bob.generateSharedSecretButton.addEventListener('click', function() {
-    bob.sharedSecretColor = mixColorsWithRatio(bob.colorValue, alice.personalPublicColor, 1, 2);
-    bob.sharedSecretColorDiv.style.backgroundColor = bob.sharedSecretColor;
-});
+function generateSharedSecretColor(primaryColorObject, secondaryColorObject) {
+    primaryColorObject.sharedSecretColor = mixColorsWithRatio(primaryColorObject.colorValue, secondaryColorObject.personalPublicColor, 1, 2);
+    primaryColorObject.sharedSecretColorDiv.style.backgroundColor = primaryColorObject.sharedSecretColor;
+};
 
 function mixColorsWithRatio(color1, color2, ratio1, ratio2) {
     var r1 = parseInt(color1.substring(1, 3), 16);
@@ -178,14 +175,14 @@ randomButton.addEventListener('click', async function() {
     eveMixedColor = undefined;
     eveColorMixer.style.background = '#ffffff';
 
-    alice.generatePublicColorButton.click();
+    generatePublicColor(alice);
     await sleep(100);
 
-    bob.generatePublicColorButton.click();
+    generatePublicColor(bob);
     await sleep(100);
 
-    alice.generateSharedSecretButton.click();
-    bob.generateSharedSecretButton.click();
+    generateSharedSecretColor(alice, bob);
+    generateSharedSecretColor(bob, alice);
 });
 
 async function randomColorGeneratorHelper(colorObject) {
