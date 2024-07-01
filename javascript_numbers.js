@@ -134,11 +134,18 @@ function handleGNumberPickerInput(numberObject){
     var selectedNumber = parseInt(numberObject.picker.value, 10);
     numberObject.numberValue = selectedNumber;
     if(isGLessThanN()){
-        console.log('G is < than N');
-        generatePublicNumber(alice);
-        generatePublicNumber(bob);
-        generateSharedSecretNumber(alice, bob);
-        generateSharedSecretNumber(bob, alice);
+        console.log(' Prime value: ', public.primeValue);
+        if(isPrime(public.primeValue)){
+            alice.miniDivOne.innerText = public.numberValue;
+            bob.miniDivOne.innerText = public.numberValue;
+            console.log('G is < than N');
+            generatePublicNumber(alice);
+            generatePublicNumber(bob);
+            generateSharedSecretNumber(alice, bob);
+            generateSharedSecretNumber(bob, alice);
+        } else {
+            console.log('NOT PRIME!')
+        }
     }
 }
 
@@ -167,12 +174,15 @@ function handleNumberPickerPrimeInput(numberObject) {
     var selectedNumber = parseInt(numberObject.primePicker.value, 10);
     numberObject.primeValue = selectedNumber;
     if(isGLessThanN()){
+        alice.miniDivOne.innerText = public.numberValue;
+        bob.miniDivOne.innerText = public.numberValue;
         console.log('calculating public numbers...')
         generatePublicNumber(alice);
         generatePublicNumber(bob);
         generateSharedSecretNumber(alice, bob);
         generateSharedSecretNumber(bob, alice);
     }
+    console.log('Prime number N: ', public.primeValue);
 }
 
 function isPrime(num) {
@@ -201,6 +211,7 @@ function isGLessThanN() {
 
 public.primePicker.addEventListener('input', function() {
     var selectedNumber = parseInt(public.primePicker.value, 10);
+    public.primeValue = selectedNumber;
     if (isPrime(selectedNumber)) {
         handleNumberPickerPrimeInput(public)
         primeWarning.style.display = "none";
@@ -229,8 +240,6 @@ public.primePicker.addEventListener('input', function() {
 public.picker.addEventListener('input', function(){
     handleGNumberPickerInput(public);
     isGLessThanN();
-    alice.miniDivOne.innerText = public.numberValue;
-    bob.miniDivOne.innerText = public.numberValue;
 });
 
 alice.picker.addEventListener('input', function(){
