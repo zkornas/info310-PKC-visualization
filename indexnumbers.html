@@ -15,12 +15,11 @@
                 <div class="numberPickerContainer">
                     <label for="aliceNumberPicker">Alice's Private Number:</label>
                     <br>
-                    <input type="number" id="aliceNumberPicker" class="numberPicker" value=>
+                    <input type="number" id="aliceNumberPicker" class="numberPicker" value=5>
                     <p id="alicePrivateWarning" style="color: red; background: yellow;">Error: Must be < N</p>
                 </div>
 
                 <div class="generateSharedSecretNumberAlice">
-                    <input type="button" id="generateSharedSecretNumberAlice" value="Generate Shared Secret">
                     
                     <div class="flexbox">
                         <p>(</p>
@@ -43,7 +42,6 @@
             <div>
                 <img id="aliceOnLaptop" class="charactersInPersonalSection" src="imgs/alice_neutral_laptop.PNG">
             </div>
-            <input type="button" id="generateAlicePublicNumber" value="Generate Alice's Public Number">
             
             <div class="flexbox">
                 <p>(</p>
@@ -64,7 +62,7 @@
             <div class="numberPickerContainer">
                 <label for="publicNumberPickerPrime">Public Prime Number (N):</label>
                 <br>
-                <input type="number" id="publicNumberPickerPrime" class="" draggable="true" value=0>
+                <input type="number" id="publicNumberPickerPrime" class="" draggable="true" value=11>
                 <br>
                 <p id="primeNumberWarning" style="color: red; background: yellow;">Error: Number must be prime!</p>
             </div>
@@ -72,7 +70,7 @@
             <div class="numberPickerContainer">
                 <label for="publicNumberPicker">Public Number (G):</label>
                 <br>
-                <input type="number" id="publicNumberPicker" class="" draggable="true" value=0>
+                <input type="number" id="publicNumberPicker" class="" draggable="true" value=7>
                 <br>
                 <p id="gNumberWarning" style="color: red; background: yellow;">Error: Number must be less than N!</p>
             </div>
@@ -96,8 +94,6 @@
                 <img id="bobOnLaptop" class="charactersInPersonalSection" src="imgs/bob_neutral_laptop.PNG">
             </div>
 
-            <input type="button" id="generateBobPublicNumber" value="Generate Bob's Public Number">
-
             <div class="flexbox">
                 <p>(</p>
                 <div id="bobGNumber" class="selectedNumberMini"></div>
@@ -119,12 +115,11 @@
                 <div class="numberPickerContainer">
                     <label for="bobNumberPicker">Bob's Private Number:</label>
                     <br>
-                    <input type="number" id="bobNumberPicker" class="numberPicker" value=>
+                    <input type="number" id="bobNumberPicker" class="numberPicker" value=4>
                     <p id="bobPrivateWarning" style="color: red; background: yellow;">Error: Must be < N</p>
                 </div>
 
                 <div class="generateSharedSecretNumberBob">
-                    <input type="button" id="generateSharedSecretNumberBob" value="Generate Shared Secret">
                     
                     <div class="flexbox">
                         <p>(</p>

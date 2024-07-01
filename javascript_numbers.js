@@ -38,8 +38,8 @@ var alice = new numberConstructor(
     document.getElementById('alicePublicNumberInSharedSecret'),
     undefined,
     document.getElementById('aliceSharedPrivateNumber'),
-    document.getElementById('generateAlicePublicNumber'),
-    document.getElementById('generateSharedSecretNumberAlice'),
+    undefined,
+    undefined,
     document.getElementById('aliceOnLaptop'),
     document.getElementById('aliceNumbers'),
     true
@@ -61,8 +61,8 @@ var bob = new numberConstructor(
     document.getElementById('bobPublicNumberInSharedSecret'),
     undefined,
     document.getElementById('bobSharedPrivateNumber'),
-    document.getElementById('generateBobPublicNumber'),
-    document.getElementById('generateSharedSecretNumberBob'),
+    undefined,
+    undefined,
     document.getElementById('bobOnLaptop'),
     document.getElementById('bobNumbers'),
     true
@@ -109,17 +109,70 @@ if (public.numberValue < public.primeValue){
 
 console.log(bob.numberValue);
 
-
-updateAllNumberButtonStatus();
-
 function handleNumberPickerInput(numberObject) {
     var selectedNumber = parseInt(numberObject.picker.value, 10);
     numberObject.numberValue = selectedNumber;
+    console.log('number: ', numberObject.numberValue)
+    if (numberObject.numberValue < public.primeValue){
+        numberObject.warning.style.display = "none";
+        numberObject.miniDivOne.innerText = public.numberValue;
+        numberObject.miniDivThree.innerText = public.primeValue;
+        numberObject.miniDivFour.innerText = public.primeValue;
+        numberObject.picker.value = numberObject.numberValue;
+        numberObject.miniDivTwo.innerText = numberObject.numberValue;
+        numberObject.miniDivFive.innerText = numberObject.numberValue;
+        generatePublicNumber(alice);
+        generatePublicNumber(bob);
+        generateSharedSecretNumber(alice, bob);
+        generateSharedSecretNumber(bob, alice);
+    } else {
+        numberObject.warning.style.display = "block";
+    }
 }
+
+function handleGNumberPickerInput(numberObject){
+    var selectedNumber = parseInt(numberObject.picker.value, 10);
+    numberObject.numberValue = selectedNumber;
+    if(isGLessThanN()){
+        console.log('G is < than N');
+        generatePublicNumber(alice);
+        generatePublicNumber(bob);
+        generateSharedSecretNumber(alice, bob);
+        generateSharedSecretNumber(bob, alice);
+    }
+}
+
+generatePublicNumber(alice);
+generatePublicNumber(bob);
+
+generateSharedSecretNumber(alice, bob);
+generateSharedSecretNumber(bob, alice);
+
+alice.miniDivOne.innerText = public.numberValue;
+alice.miniDivThree.innerText = public.primeValue;
+alice.miniDivFour.innerText = public.primeValue;
+bob.miniDivOne.innerText = public.numberValue;
+bob.miniDivThree.innerText = public.primeValue;
+bob.miniDivFour.innerText = public.primeValue;
+
+alice.picker.value = alice.numberValue;
+alice.miniDivTwo.innerText = alice.numberValue;
+alice.miniDivFive.innerText = alice.numberValue;
+
+bob.picker.value = bob.numberValue;
+bob.miniDivTwo.innerText = bob.numberValue;
+bob.miniDivFive.innerText = bob.numberValue;
 
 function handleNumberPickerPrimeInput(numberObject) {
     var selectedNumber = parseInt(numberObject.primePicker.value, 10);
     numberObject.primeValue = selectedNumber;
+    if(isGLessThanN()){
+        console.log('calculating public numbers...')
+        generatePublicNumber(alice);
+        generatePublicNumber(bob);
+        generateSharedSecretNumber(alice, bob);
+        generateSharedSecretNumber(bob, alice);
+    }
 }
 
 function isPrime(num) {
@@ -138,70 +191,50 @@ function isPrime(num) {
 function isGLessThanN() {
     if (public.numberValue < public.primeValue){
         gNumberWarning.style.display = "none";
+        return true;
     } else {
         gNumberWarning.style.display = "block";
-    }
-}
-
-function updateAllNumberButtonStatus() {
-    if (primeWarning.style.display == "block" || gNumberWarning.style.display == "block" || alice.warning.style.display == "block" || bob.warning.style.display == "block") {
-        alice.generatePublicNumberButton.disabled = true;
-        bob.generatePublicNumberButton.disabled = true;
-        alice.generateSharedSecretButton.disabled = true;
-        bob.generateSharedSecretButton.disabled = true;
-    } else {
-        alice.generatePublicNumberButton.disabled = false;
-        bob.generatePublicNumberButton.disabled = false;
-        alice.generateSharedSecretButton.disabled = false;
-        bob.generateSharedSecretButton.disabled = false;
+        return false;
     }
 }
 
 
 public.primePicker.addEventListener('input', function() {
-    handleNumberPickerPrimeInput(public);
-    if (isPrime(public.primeValue)) {
+    var selectedNumber = parseInt(public.primePicker.value, 10);
+    if (isPrime(selectedNumber)) {
+        handleNumberPickerPrimeInput(public)
         primeWarning.style.display = "none";
+        alice.miniDivThree.innerText = public.primeValue;
+        bob.miniDivThree.innerText = public.primeValue;
+        alice.miniDivFour.innerText = public.primeValue;
+        bob.miniDivFour.innerText = public.primeValue;
+        if (alice.numberValue < public.primeValue){
+            alice.warning.style.display = "none";
+        } else {
+            alice.warning.style.display = "block";
+        }
+
+        if (bob.numberValue < public.primeValue){
+            bob.warning.style.display = "none";
+        } else {
+            bob.warning.style.display = "block";
+        }
     } else {
+        console.log('Not prime!');
         primeWarning.style.display = "block";
     }
     isGLessThanN();
-    alice.miniDivThree.innerText = public.primeValue;
-    bob.miniDivThree.innerText = public.primeValue;
-    alice.miniDivFour.innerText = public.primeValue;
-    bob.miniDivFour.innerText = public.primeValue;
-    updateAllNumberButtonStatus();
-    if (alice.numberValue < public.primeValue){
-        alice.warning.style.display = "none";
-    } else {
-        alice.warning.style.display = "block";
-    }
-
-    if (bob.numberValue < public.primeValue){
-        bob.warning.style.display = "none";
-    } else {
-        bob.warning.style.display = "block";
-    }
 });
 
 public.picker.addEventListener('input', function(){
-    handleNumberPickerInput(public);
+    handleGNumberPickerInput(public);
     isGLessThanN();
     alice.miniDivOne.innerText = public.numberValue;
     bob.miniDivOne.innerText = public.numberValue;
-    updateAllNumberButtonStatus();
 });
 
 alice.picker.addEventListener('input', function(){
     handleNumberPickerInput(alice);
-    alice.miniDivTwo.innerText = alice.numberValue;
-    alice.miniDivFive.innerText = alice.numberValue;
-    if (alice.numberValue < public.primeValue){
-        alice.warning.style.display = "none";
-    } else {
-        alice.warning.style.display = "block";
-    }
-    updateAllNumberButtonStatus();
 });
 
 bob.picker.addEventListener('input', function(){
@@ -213,34 +246,19 @@ bob.picker.addEventListener('input', function(){
     } else {
         bob.warning.style.display = "block";
     }
-    updateAllNumberButtonStatus();
 });
 
-alice.generatePublicNumberButton.addEventListener('click', function() {
-    alice.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(alice.numberValue)) % BigInt(public.primeValue));
-    alice.personalPublicNumberDiv.innerText = alice.personalPublicNumber;
-    alice.publicNumberInSharedSecretDiv.innerText = alice.personalPublicNumber;
-    console.log(alice.personalPublicNumber)
-});
+function generatePublicNumber(numberObject) {
+    numberObject.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(numberObject.numberValue)) % BigInt(public.primeValue));
+    numberObject.personalPublicNumberDiv.innerText = numberObject.personalPublicNumber;
+    numberObject.publicNumberInSharedSecretDiv.innerText = numberObject.personalPublicNumber;
+    console.log(numberObject.personalPublicNumber)
+};
 
-bob.generatePublicNumberButton.addEventListener('click', function() {
-    bob.personalPublicNumber = BigInt((BigInt(public.numberValue) ** BigInt(bob.numberValue)) % BigInt(public.primeValue));
-    
-    bob.personalPublicNumberDiv.innerText = bob.personalPublicNumber;
-    bob.publicNumberInSharedSecretDiv.innerText = bob.personalPublicNumber;
-    console.log(bob.personalPublicNumber)
-});
-
-alice.generateSharedSecretButton.addEventListener('click', function(){
-
-    alice.sharedSecretNumber = BigInt((BigInt(bob.personalPublicNumber) ** BigInt(alice.numberValue)) % BigInt(public.primeValue));
-    alice.sharedSecretNumberDiv.innerText = alice.sharedSecretNumber;
-});
-
-bob.generateSharedSecretButton.addEventListener('click', function(){
-    bob.sharedSecretNumber = BigInt((BigInt(alice.personalPublicNumber) ** BigInt(bob.numberValue)) % BigInt(public.primeValue));    
-    bob.sharedSecretNumberDiv.innerText = bob.sharedSecretNumber;
-});
+function generateSharedSecretNumber(primaryNumberObject, secondaryNumberObject) {
+    primaryNumberObject.sharedSecretNumber = BigInt((BigInt(secondaryNumberObject.personalPublicNumber) ** BigInt(primaryNumberObject.numberValue)) % BigInt(public.primeValue));
+    primaryNumberObject.sharedSecretNumberDiv.innerText = primaryNumberObject.sharedSecretNumber;
+};
 
 alice.showHideButton.addEventListener('click', function(){
     if (alice.isHidden == false) {
@@ -320,17 +338,15 @@ randomButton.addEventListener('click', async function() {
     bob.miniDivTwo.innerText = bob.numberValue;
     bob.miniDivFive.innerText = bob.numberValue;
     await sleep(100);
-
-    updateAllNumberButtonStatus();
     
-    alice.generatePublicNumberButton.click();
+    generatePublicNumber(alice);
     await sleep(100);
 
-    bob.generatePublicNumberButton.click();
+    generatePublicNumber(bob);
     await sleep(100);
 
-    alice.generateSharedSecretButton.click();
-    bob.generateSharedSecretButton.click();
+    generateSharedSecretNumber(alice, bob);
+    generateSharedSecretNumber(bob, alice);
 });
 
 function getRandomPrime() {
